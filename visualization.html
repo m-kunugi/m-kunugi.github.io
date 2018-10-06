@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="description" content="データの可視化の練習">
+	<title>データの可視化の練習</title>
+
+	<link href="leaflet.css" rel="stylesheet" type="text/css">
+	<style>
+			body {
+				background-color: rgb(243, 243, 243);
+			}
+			.leaflet-label {
+			   -webkit-transition: opacity .5s ease-in-out;
+				  -moz-transition: opacity .5s ease-in-out;
+				   -ms-transition: opacity .5s ease-in-out;
+					-o-transition: opacity .5s ease-in-out;
+					   transition: opacity .5s ease-in-out;
+			}
+			.leaflet-container {
+				cursor: default;
+			}
+			.seaboard {color: rgb(221, 109, 17);}
+			.southern {color: #a10ee6;}
+			.seaboard, .southern {
+				position: relative;
+				top: 1px;
+			}
+			#mapauto {
+				position: relative;
+    			width: 100%;
+			}
+			@media screen and (max-width: 800px) {
+				.leaflet-top .leaflet-control-title,
+				.leaflet-left .leaflet-control-title {
+				margin: 0;
+				padding-left: 10px;
+				padding-top: 0;
+				width: 200px;
+				background-color: white;
+				background-color: rgba(255,255,255,0.8);
+				border-right: 1px solid #CECDD2;
+				border-bottom: 1px solid #CECDD2;
+				}
+				.leaflet-control-title h11 {
+				font-size: 12px;
+				margin: 0;
+			    }
+				.leaflet-control-title h10 {
+				font-size: 10px;
+				margin: 0;
+			    }
+				#mapauto:before {
+   					content:"";
+    				display: block;
+					padding-top: 70%; /* 高さを幅の70%に固定 */
+				}
+			}
+			@media screen and (min-width: 800px) {
+				.leaflet-top .leaflet-control-title,
+				.leaflet-left .leaflet-control-title {
+				margin: 0;
+				padding-left: 10px;
+				padding-top: 0;
+				width: 350px;
+				background-color: white;
+				background-color: rgba(255,255,255,0.8);
+				border-right: 1px solid #CECDD2;
+				border-bottom: 1px solid #CECDD2;
+				}
+				.leaflet-control-title h11 {
+				font-size: 22px;
+				margin: 0;
+			    }
+				.leaflet-control-title h10 {
+				font-size: 15px;
+				margin: 0;
+			    }
+				#mapauto:before {
+   					content:"";
+    				display: block;
+					padding-top: 30%; /* 高さを幅の50%に固定 */
+				}
+			}
+			#map {
+    			position: absolute;
+    			top: 0;
+    			left: 0;
+    			bottom: 0;
+    			right: 0;
+			}
+	</style>	
+</head>
+<body>
+	<script type="text/javascript" src="js/header1.js"></script>
+
+	<li><a href="index.html"><strong>トップページ</strong><br /><span>Top</span></a></li>						
+	<li><a href="various.html"><strong>色々なもの</strong><br /><span>Various things</span></a>
+		<ul class="sub-menu">	
+			<li><a href="various.html#train">地方鉄道</a></li>	
+			<li><a href="various.html#swingby">YouTube</a></li>							
+		</ul>
+	</li>
+	<li class="current-menu-item"><a href="visualization.html"><strong>データの可視化の練習</strong><br /><span>Data Visualization</span></a>
+		<ul class="sub-menu">	
+			<li><a href="visualization.html#train">最速手段</a></li>						
+		</ul>
+	</li>
+	<!--<li><a href="sample.html"><strong>サービス概要</strong><br /><span>Service</span></a></li>-->
+	<!--<li><a href="sample.html"><strong>弊社の取り組み</strong><br /><span>Approach</span></a></li>-->
+	<!--<li><a href="sample.html"><strong>会社概要</strong><br /><span>Company</span></a></li>-->						
+	<li><a href="index.html"><strong>お問い合わせ</strong><br /><span>Contact</span></a></li>
+
+	<script type="text/javascript" src="js/header2.js"></script>
+	<div id="wrapper">
+		<section id="main">
+			<section class="content">
+				<h3 class="heading">データの可視化の練習</h3>
+				<p>JavaScriptによるデータビジュアライゼーション入門(Stephen A. Thomas著、オライリージャパン、ISBN978-4-87311-746-1)を参考にデータの可視化を色々やってみました。</p>
+				<p><a class="scroll">本郷の1限に間に合うのはどっちのルートか？</a></p>
+				<article class="post">
+					<p class="dateLabel">最終更新 2018/09/24</p>
+					<h3 class="scroll-target" id="train">本郷の1限に間に合うのはどっちのルートか？</h3>
+					<p>本郷キャンパスの1限(8:30)に間に合う為には、渋谷本郷三丁目間ではどっちが最速か考えました。ルートは銀座線〜赤坂見附乗り換え〜丸ノ内線と半蔵門線〜大手町乗り換え〜丸ノ内線の2通りです。</p>
+					<p>下の地図の左下のボタンを押してもらうとわかる通り、どちらのルートでもかかる時間に殆ど差はありません。</p>
+					<p>勿論、<font color="orange">余裕を持って到着するのに越したことはありません！</font></p>
+					<div id="mapauto"><div id="map"></div></div>
+		<script src="js/leaflet.js"></script>
+		<script>
+			window.onload = function() {
+	
+				/*------------*/
+				/** Data Set **/
+				/*------------*/
+	
+				/* From 銀座 */
+	
+				var seaboard = [
+					{ "stop": "渋谷",          "latitude": 35.658034, "longitude": 139.701636, "duration":  10, "offset": [-30,10] },
+					{ "stop": "表参道", "latitude": 35.665375, "longitude": 139.712100, "duration":  15, "offset": [  -30,  -20] },
+					{ "stop": "外苑前",       "latitude": 35.670426, "longitude": 139.717824, "duration":  10, "offset": [  -30,  -15] },
+					{ "stop": "青山一丁目",     "latitude": 35.672865,  "longitude": 139.723877, "duration":  5, "offset": [  -30,  -25] },
+					{ "stop": "赤坂見附",      "latitude": 35.676997, "longitude": 139.737155, "duration":  25, "offset": [  -30,  25] },
+					{ "stop": "国会議事堂前",        "latitude": 35.673677, "longitude": 139.743531, "duration": 10, "offset": [  -40,  20] },
+					{ "stop": "霞ヶ関",         "latitude": 35.672847, "longitude": 139.750822, "duration":  10, "offset": [  0,  15] },
+					{ "stop": "銀座",         "latitude": 35.672998, "longitude": 139.763675, "duration":  10, "offset": [  6, 6] },
+					{ "stop": "東京",        "latitude": 35.681760, "longitude": 139.764884, "duration":  15, "offset": [  6,  6] },
+					{ "stop": "大手町",        "latitude": 35.686462, "longitude": 139.766184,    "duration":  10, "offset": [  6,  6] },
+					{ "stop": "淡路町",      "latitude": 35.695178, "longitude": 139.767471, "duration":  5, "offset": [ 6, -2] },
+					{ "stop": "御茶ノ水",      "latitude": 35.700558, "longitude": 139.764167, "duration":  10, "offset": [  6, 0] },
+					{ "stop": "本\u00a0郷\u00a0三\u00a0丁\u00a0目", "latitude": 35.706853, "longitude": 139.759759, "duration":  10, "offset": [  10, 4] }
+				];
+	
+				/* From 半蔵門 */
+	
+				var southern = [
+					{ "stop": "渋谷",          "latitude": 35.658034, "longitude": 139.701636, "duration":  15, "offset": [-30,-10] },
+					{ "stop": "", "latitude": 35.665375, "longitude": 139.712100, "duration":  15, "offset": [  6,  5] },
+					{ "stop": "",     "latitude": 35.672865,  "longitude": 139.723877, "duration":  10, "offset": [  6,  5] },
+					{ "stop": "永田町", "latitude": 35.678571, "longitude": 139.739953, "duration": 15, "offset": [ 10, 0] },
+					{ "stop": "半蔵門",        "latitude": 35.685459, "longitude": 139.741625, "duration": 10, "offset": [  -40,  0] },
+					{ "stop": "九段下",         "latitude": 35.695464, "longitude": 139.751154, "duration":  15, "offset": [  -25,  -10] },
+					{ "stop": "神保町",         "latitude": 35.695976, "longitude": 139.757584, "duration":  10, "offset": [  -5, -8] },
+					{ "stop": "",        "latitude": 35.686462, "longitude": 139.765284,    "duration":  30, "offset": [  9,  6] },
+					{ "stop": "",      "latitude": 35.695178, "longitude": 139.766471, "duration":  5, "offset": [ 6, -2] },
+					{ "stop": "",      "latitude": 35.700558, "longitude": 139.763167, "duration":  10, "offset": [  6, 0] },
+					{ "stop": "",       "latitude": 35.706853, "longitude": 139.758759, "duration":  10, "offset": [  6, 4] },	
+				];
+	
+				/*----------------------*/
+				/** Leaflet Extensions **/
+				/*----------------------*/
+	
+				L.Control.Animate = L.Control.extend({
+					options: {
+						position: 'bottomleft',
+						animateStartText: '▶︎',
+						animateStartTitle: 'Start animation',
+						animatePauseText: '◼︎',
+						animatePauseTitle: 'Pause animation',
+						animateResumeText: '▶︎',
+						animateResumeTitle: 'Resume animation',
+						animateStartFn: null,
+						animateStopFn: null
+					},
+	
+					onAdd: function () {
+						var animateName = 'leaflet-control-animate',
+							container = L.DomUtil.create('div', animateName + ' leaflet-bar'),
+							options = this.options;
+	
+						this._button  = this._createButton(options.animateStartText, options.animateStartTitle,
+								animateName,  container, this._clicked);
+	
+						return container;
+					},
+	
+					_createButton: function (html, title, className, container, fn) {
+						var link = L.DomUtil.create('a', className, container);
+						link.innerHTML = html;
+						link.href = '#';
+						link.title = title;
+	
+						L.DomEvent
+							.on(link, 'mousedown dblclick', L.DomEvent.stopPropagation)
+							.on(link, 'click', L.DomEvent.stop)
+							.on(link, 'click', fn, this);
+	
+						return link;
+					},
+	
+					_running: false,
+	
+					_clicked: function() {
+						if (this._running) {
+							this._button.innerHTML = this.options.animateResumeText;
+							this._button.title = this.options.animateResumeTitle;
+							if (this.options.animateStopFn) {
+								this.options.animateStopFn();
+							}
+						} else {
+							this._button.innerHTML = this.options.animatePauseText;
+							this._button.title = this.options.animatePauseTitle;
+							if (this.options.animateStartFn) {
+								this.options.animateStartFn();
+							}
+						}
+						this._running = !this._running;
+					},
+	
+					reset: function() {
+						this._running = false;
+						this._button.innerHTML = this.options.animateStartText;
+						this._button.title = this.options.animateStartTitle;
+					}
+				});
+	
+				L.control.animate = function(options) {
+					return new L.Control.Animate(options);
+				};
+	
+				L.Label = L.Class.extend({
+					initialize: function(latLng, label, options) {
+						this._latlng = latLng;
+						this._label = label;
+						L.Util.setOptions(this, options);
+						this._status = "hidden";
+					},
+					options: {
+						offset: new L.Point(0, 0)
+					},
+					onAdd: function(map) {
+						this._container = L.DomUtil.create('div', 'leaflet-label');
+						this._container.style.lineHeight = "0";
+						this._container.style.opacity = "0";
+						map.getPanes().markerPane.appendChild(this._container);
+						this._container.innerHTML = this._label;
+						var pos = map.latLngToLayerPoint(this._latlng);
+						var op = new L.Point(pos.x + this.options.offset.x, pos.y + this.options.offset.y);
+						L.DomUtil.setPosition(this._container, op);
+					},
+					getStatus: function() {
+						return this._status;
+					},
+					setStatus: function(status) {
+						switch (status) {
+							case "hidden":
+								this._status = "hidden";
+								this._container.style.opacity = "0";
+								break;
+							case "shown":
+								this._status = "shown";
+								this._container.style.opacity = "1";
+								break;
+							case "dimmed":
+								this._status = "dimmed";
+								this._container.style.opacity = "0.5";
+								break;
+						}
+					}
+				});
+	
+				L.Control.Title = L.Control.extend({
+					options: {
+						position: "topleft"
+					},
+	
+					initialize: function (title, options) {
+						L.setOptions(this, options);
+						this._title = title;
+					},
+	
+					onAdd: function (map) {
+						var container = L.DomUtil.create('div', 'leaflet-control-title');
+						container.innerHTML = this._title;
+						return container;
+					}
+				});
+	
+				L.control.title = function(title, options) {
+					return new L.Control.Title(title, options);
+				};
+	
+				/*----------------*/
+				/** Map Creation **/
+				/*----------------*/
+	
+				var map = L.map('map',{
+					center: [35.679, 139.732],
+					zoom: 12,
+					minZoom: 12,
+					maxZoom: 12,
+					dragging: false,
+					zoomControl: false,
+					touchZoom: false,
+					scrollWheelZoom: false,
+					doubleClickZoom: false,
+					boxZoom: false,
+					keyboard: false
+				});
+	
+				L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+					 attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+					 maxZoom: 16
+				}).addTo(map);
+	
+				L.polyline(
+					seaboard.map(function(stop) {return [stop.latitude, stop.longitude]}),
+					{clickable: false, color: "rgb(221, 109, 17)", weight: 1}
+				).addTo(map);
+	
+				L.polyline(
+					southern.map(function(stop) {return [stop.latitude, stop.longitude]}),
+					{clickable: false, color: "#a10ee6", weight: 1}
+				).addTo(map);
+	
+				L.control.title(
+					"<h11>渋谷本郷三丁目間はどれが最速？</h11><br>" +
+					"<i><h10>銀座線〜赤坂見附〜丸ノ内線</h10></i> " +
+					"<h10>(<span class='seaboard'>━━━</span>)</h10><br> " +
+					"<i><h10>半蔵門線〜大手町〜丸ノ内線</h10></i> " +
+					"<h10>(<span class='southern'>━━━</span>)</h10><br>" +
+					"<h10>下のボタンをクリックしてください。</h10>"
+				).addTo(map);
+	
+				var start = seaboard[0];
+				var label = new L.Label(
+					[start.latitude,start.longitude],
+					start.stop,
+					{offset: new L.Point(start.offset[0], start.offset[1])}
+				);
+				map.addLayer(label);
+				label.setStatus("shown");
+				var finish = seaboard[seaboard.length-1];
+				label = new L.Label(
+					[finish.latitude,finish.longitude],
+					finish.stop,
+					{offset: new L.Point(finish.offset[0], finish.offset[1])}
+				);
+				map.addLayer(label);
+				label.setStatus("shown");
+	
+				/*-------------------*/
+				/** Animation Setup **/
+				/*-------------------*/
+	
+				var buildPathAnimation = function(route, options) {
+					var animation = [];
+	
+					for (var stopIdx=0, prevStops=[]; stopIdx < route.length-1; stopIdx++) {
+						var stop = route[stopIdx];
+						var nextStop = route[stopIdx+1]
+						prevStops.push([stop.latitude, stop.longitude]);
+						for (var minutes = 1; minutes <= stop.duration; minutes++) {
+							var position = [
+								stop.latitude +  (nextStop.latitude  - stop.latitude)  * (minutes/stop.duration),
+								stop.longitude + (nextStop.longitude - stop.longitude) * (minutes/stop.duration)
+							];
+							animation.push(L.polyline(prevStops.concat([position]),options));
+						}
+					}
+					return animation;
+				}
+	
+				var buildLabelAnimation = function() {
+					var args = Array.prototype.slice.call(arguments),
+						labels = [];
+	
+					args.forEach(function(route) {
+						var minutes = 0;
+						route.forEach(function(stop,idx) {
+							if (idx !== 0 && idx < route.length-1) {
+								var label = new L.Label(
+									[stop.latitude,stop.longitude],
+									stop.stop,
+									{offset: new L.Point(stop.offset[0], stop.offset[1])}
+								);
+								map.addLayer(label);
+								labels.push({minutes: minutes, label: label, status: "shown"});
+								labels.push({minutes: minutes+50, label: label, status: "dimmed"});
+							}
+							minutes += stop.duration;
+						});
+					});
+	
+					labels.sort(function(a,b) {return a.minutes - b.minutes;})
+	
+					return labels;
+				}
+	
+				var labels = buildLabelAnimation(seaboard, southern);
+				var labelAnimation = labels.slice(0);
+	
+				var routeAnimations = [
+					buildPathAnimation(seaboard, {clickable: false, color: "rgb(221, 109, 17)", weight: 8, opacity: 1.0}),
+					buildPathAnimation(southern, {clickable: false, color: "#a10ee6", weight: 8, opacity: 1.0})
+				];
+				var maxPathSteps = Math.min.apply(null,routeAnimations.map(function(animation) {return animation.length}));
+				var maxLabelSteps = labels[labels.length-1].minutes;
+				var maxSteps = Math.max(maxPathSteps, maxLabelSteps);
+				var step = 0;
+				var animateStep = function() {
+					if (step > 0 && step < maxPathSteps) {
+						routeAnimations.forEach(function(animation) {
+							map.removeLayer(animation[step-1]);
+						});
+					}
+					if (step === maxSteps) {
+						routeAnimations.forEach(function(animation) {
+							map.removeLayer(animation[maxPathSteps-1]);
+						});
+						step = 0;
+						labelAnimation = labels.slice(0);
+						labelAnimation.forEach(function(label) {
+							label.label.setStatus("hidden");
+						});
+					}
+					while (labelAnimation.length && step === labelAnimation[0].minutes) {
+						var label = labelAnimation[0].label;
+						if (label.getStatus() === "shown" || step < maxPathSteps) {
+							label.setStatus(labelAnimation[0].status);
+						}
+						labelAnimation.shift();
+					}
+					if (step < maxPathSteps) {
+						routeAnimations.forEach(function(animation) {
+							map.addLayer(animation[step]);
+						});
+					}
+					return ++step === maxSteps;
+				}
+	
+				var interval = null;
+				var animate = function() {
+					interval = window.setInterval(function() {
+						if (animateStep()) {
+							window.clearInterval(interval);
+							control.reset();
+						}
+					}, 30);
+				}
+				var pause = function() {
+					window.clearInterval(interval);
+				}
+	
+				var control = L.control.animate({
+					animateStartFn: animate,
+					animateStopFn:  pause
+				});
+	
+				control.addTo(map);
+	
+			}
+		</script>
+		<p>参考文献　YAHOO!乗換案内　(2018年9月25日(火)渋谷発本郷三丁目08:22着として検索)<br>
+			渋谷〜銀座線〜赤坂見附〜丸ノ内線〜本郷三丁目<a href="https://yahoo.jp/xF6GP5">https://yahoo.jp/xF6GP5</a><br>
+			渋谷〜半蔵門線〜大手町〜丸ノ内線〜本郷三丁目<a href="https://yahoo.jp/YYH5Q2">https://yahoo.jp/YYH5Q2</a></p>			
+		<div class="pagenav">	
+			<span class="next"><a class="pagetop" rel="next">&#9650; トップへ</a></span>
+		</div>
+
+				</article>
+			</section>
+			<div class="pagenav">
+				<span class="prev"><a href="index.html" rel="prev">&laquo; 前のページ</a></span>
+				<span class="next"><a href="index.html" rel="next">次のページ &raquo;</a></span>
+			</div>
+		</section>
+	</div>
+
+	<script type="text/javascript" src="js/footer.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,854 @@
+/*
+* Box Theme
+* Created by : Ahmed Eissa
+* website : www.ahmedessa.net
+* behance : https://www.behance.net/3essa
+*/
+
+
+/* Table of Content
+==================================================
+	- Google fonts & font family -
+	- General -
+    - typography -
+    - Preloader -
+	- Header -
+    - box intro section -
+    - Portfoilo section -
+    - Footer -
+    - About page -
+    - Services page -
+    - contact page -
+    - Portfolio single page -
+    - Responsive media queries -
+*/
+
+
+/* Google fonts & font family
+==================================================*/
+
+@import url(https://fonts.googleapis.com/css?family=Poppins:400,500,600,700);
+
+/* General
+==================================================*/
+
+html,
+body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.8;
+    color: #999
+}
+
+.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.no-padding [class^="col-"] {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.main-container {
+    padding: 100px 0;
+}
+
+.center {
+    text-align: center;
+}
+
+a {
+    -webkit-transition: all .3s;
+    transition: all .3s
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.h-30 {
+    height: 30px
+}
+
+.h-10 {
+    height: 10px
+}
+
+.color {
+    color: #ffbf00;
+    font-size: 11px;
+}
+
+
+/* typography
+==================================================*/
+
+h1 {
+    color: #393939;
+    font-size: 60px;
+    text-transform: uppercase;
+}
+
+h3 {
+    color: #393939;
+}
+
+h5 {
+    color: #ffbf00;
+}
+
+/* loadingの設定
+http://satohmsys.info/simple-loading-animation/
+==================================================*/
+@import 'https://fonts.googleapis.com/css?family=Poppins:400,500,700';
+
+/********************
+animation setting
+********************/
+@-webkit-keyframes loadingAnim{
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 100%;
+        -webkit-transform: translate(100%);
+        transform: translate(100%);
+    }
+}
+@keyframes loadingAnim{
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 100%;
+        -webkit-transform: translate(100%);
+        transform: translate(100%);
+    }
+}
+@-webkit-keyframes loadingAnim_text{
+    0%{
+        opacity: 1;
+        color: #cba166;
+    }
+    50%{
+        color: #333;
+
+    }
+    100%{
+        opacity: .5;
+        color: #fff;
+    }
+}
+@keyframes loadingAnim_text{
+    0%{
+        opacity: 1;
+        color: #cba166;
+    }
+    50%{
+        color: #333;
+    }
+    100%{
+        opacity: .5;
+        color: #fff;
+    }
+}
+
+/********************
+loading effects
+********************/
+.loadingAnim{
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.loadingAnim_line{
+    line-height: 1;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+    overflow: hidden;
+    width: 30%;
+    height: 2em;
+    margin: auto;
+    transition: all .3s cubic-bezier(.785, .135, .15, .86) 0s;
+    transition-delay: .6s;
+    text-align: center;
+}
+.loadingAnim_line:after{
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 0;
+    height: 100%;
+    margin: auto  auto auto 0;
+    content: ' ';
+    -webkit-animation: loadingAnim 2s ease-in-out .1s infinite normal backwards;
+    animation: loadingAnim 2s ease-in-out .1s infinite normal backwards;
+    background-color: #fff;
+    will-change: transform, width;
+}
+.loadingAnim_line:before{
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 1;
+    display: block;
+    content: 'Live in SPACE Project';/*ローディングメッセージ*/
+    -webkit-animation: loadingAnim_text 1s ease .1s infinite alternate both;
+    animation: loadingAnim_text 1s ease .1s infinite alternate both;
+    letter-spacing: .10em;
+    color: #fff;
+    will-change: opacity;
+}
+.loaded .loadingAnim_line{
+    overflow: hidden;
+    height: 0;
+}
+.loaded .loadingAnim_line:after,
+.loaded .loadingAnim_line:before{
+    -webkit-animation: none;
+    animation: none;
+}
+.loaded .loadingAnim_line:before{
+    content: 'LOADED!';/*ローディングメッセージ*/
+}
+
+.loadingAnim:before,
+.loadingAnim:after{
+    line-height: 1;
+    position: fixed;
+    z-index: 99;
+    right: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    content: ' ';
+    transition: all .3s cubic-bezier(.785, .135, .15, .86) 0s;
+    transition-delay: .3s;
+    background-color: rgb(150, 150, 150);
+
+}
+.loadingAnim:before{
+    top: 0;
+}
+.loadingAnim:after{
+    bottom: 0;
+}
+
+.loaded .loadingAnim:before{
+    height: 0;
+    -webkit-transform: translateY(-1%);
+    -ms-transform: translateY(-1%);
+    transform: translateY(-1%);
+}
+.loaded .loadingAnim:after{
+    height: 0;
+    -webkit-transform: translateY(1%);
+    -ms-transform: translateY(1%);
+    transform: translateY(1%);
+}
+
+/* loadingの設定は以上
+==================================================*/
+
+
+/* box-intro
+==================================================*/
+
+.box-intro {
+    text-align: center;
+    display: table;
+    height: 100vh;
+    width: 100%;
+}
+
+.box-intro .table-cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.box-intro em {
+    font-style: normal;
+    text-transform: uppercase
+}
+
+b i:last-child {
+    color: #ffbf00 !important;
+}
+
+.box-intro h5 {
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #999;
+    line-height: 1.7
+}
+
+
+/* mouse effect */
+
+.demo a {
+    position: absolute;
+    bottom: 20px;
+    left: 47%;
+    z-index: 2;
+    display: inline-block;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    color: #ffbf00;
+    font : normal 400 20px/1 'Josefin Sans', sans-serif;
+    letter-spacing: .1em;
+    text-decoration: none;
+    transition: opacity .3s;
+  }
+  .demo a:hover {
+    opacity: .5;
+  }
+
+#section1 a {
+    padding-top: 60px;
+  }
+  #section1 a span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 35px;
+    height: 55px;
+    margin-left: -15px;
+    border: 2px solid #ffbf00;
+    border-radius: 50px;
+    box-sizing: border-box;
+  }
+  #section1 a span::before {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    content: '';
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    background-color: #ffbf00;
+    border-radius: 100%;
+    -webkit-animation: sdb1 2s infinite;
+    animation: sdb1 2s infinite;
+    box-sizing: border-box;
+  }
+  @-webkit-keyframes sdb1 {
+    0% {
+      -webkit-transform: translate(0, 0);
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+    80% {
+      -webkit-transform: translate(0, 20px);
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes sdb1 {
+    0% {
+      transform: translate(0, 0);
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+    80% {
+      transform: translate(0, 20px);
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+
+/* text rotate */
+
+.box-headline {
+    font-size: 130px;
+    line-height: 1.0;
+}
+
+.box-words-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+.box-words-wrapper b {
+    display: inline-block;
+    position: absolute;
+    white-space: nowrap;
+    left: 0;
+    top: 0;
+}
+
+.box-words-wrapper b.is-visible {
+    position: relative;
+}
+
+.no-js .box-words-wrapper b {
+    opacity: 0;
+}
+
+.no-js .box-words-wrapper b.is-visible {
+    opacity: 1;
+}
+
+.box-headline.rotate-2 .box-words-wrapper {
+    -webkit-perspective: 300px;
+    perspective: 300px;
+}
+
+.box-headline.rotate-2 i,
+.box-headline.rotate-2 em {
+    display: inline-block;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.box-headline.rotate-2 b {
+    opacity: 0;
+}
+
+.box-headline.rotate-2 i {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform: translateZ(-20px) rotateX(90deg);
+    transform: translateZ(-20px) rotateX(90deg);
+    opacity: 0;
+}
+
+.is-visible .box-headline.rotate-2 i {
+    opacity: 1;
+}
+
+.box-headline.rotate-2 i.in {
+    -webkit-animation: box-rotate-2-in 0.4s forwards;
+    animation: box-rotate-2-in 0.4s forwards;
+}
+
+.box-headline.rotate-2 i.out {
+    -webkit-animation: box-rotate-2-out 0.4s forwards;
+    animation: box-rotate-2-out 0.4s forwards;
+}
+
+.box-headline.rotate-2 em {
+    -webkit-transform: translateZ(20px);
+    transform: translateZ(20px);
+}
+
+.no-csstransitions .box-headline.rotate-2 i {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    opacity: 0;
+}
+
+.no-csstransitions .box-headline.rotate-2 i em {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.no-csstransitions .box-headline.rotate-2 .is-visible i {
+    opacity: 1;
+}
+
+@-webkit-keyframes box-rotate-2-in {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateZ(-20px) rotateX(90deg);
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: translateZ(-20px) rotateX(-10deg);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateZ(-20px) rotateX(0deg);
+    }
+}
+
+@keyframes box-rotate-2-in {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateZ(-20px) rotateX(90deg);
+        transform: translateZ(-20px) rotateX(90deg);
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: translateZ(-20px) rotateX(-10deg);
+        transform: translateZ(-20px) rotateX(-10deg);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateZ(-20px) rotateX(0deg);
+        transform: translateZ(-20px) rotateX(0deg);
+    }
+}
+
+@-webkit-keyframes box-rotate-2-out {
+    0% {
+        opacity: 1;
+        -webkit-transform: translateZ(-20px) rotateX(0);
+    }
+    60% {
+        opacity: 0;
+        -webkit-transform: translateZ(-20px) rotateX(-100deg);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translateZ(-20px) rotateX(-90deg);
+    }
+}
+
+@keyframes box-rotate-2-out {
+    0% {
+        opacity: 1;
+        -webkit-transform: translateZ(-20px) rotateX(0);
+        transform: translateZ(-20px) rotateX(0);
+    }
+    60% {
+        opacity: 0;
+        -webkit-transform: translateZ(-20px) rotateX(-100deg);
+        transform: translateZ(-20px) rotateX(-100deg);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translateZ(-20px) rotateX(-90deg);
+        transform: translateZ(-20px) rotateX(-90deg);
+    }
+}
+
+/* footer
+==================================================*/
+
+footer {
+    padding: 30px 0;
+    text-align: center;
+    background: #f5f5f5
+}
+
+.copyright {
+    color: #ccc;
+    margin-bottom: 0;
+}
+
+footer img {
+    margin: 0 auto;
+}
+
+
+/* backto top
+==================================================*/
+
+.cd-top {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    position: fixed;
+    bottom: 20px;
+    line-height: 40px;
+    font-size: 20px;
+    right: 10px;
+    text-align: center;
+    color: #fff;
+    background: rgba(255, 191, 0, 0.8);
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity .3s 0s, visibility 0s .3s;
+    transition: opacity .3s 0s, visibility 0s .3s;
+}
+
+.cd-top.cd-is-visible,
+.cd-top.cd-fade-out,
+.no-touch .cd-top:hover {
+    -webkit-transition: opacity .3s 0s, visibility 0s 0s;
+    transition: opacity .3s 0s, visibility 0s 0s;
+}
+
+.cd-top.cd-is-visible {
+    /* the button becomes visible */
+    visibility: visible;
+    opacity: 1;
+}
+
+.cd-top.cd-fade-out {
+    opacity: .5;
+}
+
+.no-touch .cd-top:hover,
+.no-touch .cd-top:focus {
+    background-color: #ff9100;
+    opacity: 1;
+    color: #fff;
+}
+
+/* Responsive media queries
+==================================================*/
+
+@media (max-width: 991px) {
+    .portfolio .categories-grid span {
+        margin-bottom: 0;
+        text-align: center;
+        width: 100%;
+    }
+    .portfolio .categories-grid .categories ul li {
+        text-align: center;
+    }
+    .portfolio .categories-grid .categories ul li a {
+        margin-left: 0;
+    }
+    .col-md-6 h3 {
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (max-width: 670px) {
+    .box-headline {
+        font-size: 100px;
+    }
+    .box-intro h5 {
+        font-size: 12px;
+    }
+    .box-primary-nav a {
+        padding: 5px 1em;
+        font-size: 14px;
+    }
+    .box-primary-nav {
+        padding: 80px 0 0;
+    }
+    .box-primary-nav .box-social a {
+        font-size: 23px;
+    }
+    .top-bar h1 {
+        font-size: 40px;
+        line-height: 30px;
+    }
+    .portfolio .categories-grid .categories ul li {
+        float: none;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    .box-headline {
+        font-size: 80px;
+    }
+    .box-intro h5 {
+        font-size: 12px;
+    }
+    .main-container {
+        padding: 50px 0;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .box-headline {
+        font-size: 50px;
+    }
+    .box-intro h5 {
+        font-size: 12px;
+    }
+    .top-bar h1 {
+        font-size: 30px;
+        line-height: 30px;
+    }
+}
+  
+
+  /* 略 */
+ul {
+    list-style: none;
+    top: 0;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    }
+    ul li,
+    ul li dl {
+    width: auto;
+    }
+    ul {
+    letter-spacing: -1em;
+    }
+    ul li {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin: 0 0;/* 画像の前にニュルッと出るやつの余白 */
+    letter-spacing: 0;
+    }
+    ul dl {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    padding: 5% 5%;/* 画像の前にニュルッと出るやつの文字の周りの余白 */
+    box-sizing: border-box;
+    color: #fff;
+    background: rgba(205,92,92,.9);/* 画像の前にニュルッと出るやつの色 */
+    }
+    ul dl dt {
+    margin-bottom: 0.3em;
+    }
+    ul dl dd {
+    margin: 0;
+    font-size: 18px;/* 文字サイズ */
+    line-height: 1.6;/* 行間 */
+    text-align: justify;
+    word-break: break-all;
+    }
+    ul dl dd:last-of-type {
+    margin-top: 10px;
+    text-align: right;
+    }
+    ul a {
+    padding: 0.3em 0.5em;
+    background-color: #fff;
+    }
+    /* type1 */
+    .type1 dl {
+    opacity: 0;
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+    -webkit-transition: opacity 0.6s, -webkit-transform 0.6s;
+    transition: opacity 0.6s, transform 0.6s;
+    }
+    .type1:hover dl {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    }
+   
+
+    /* https://web-bruno.com/flexbox-css3/ */
+.contents-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.contents-box img {
+	display: block;
+	margin-bottom: 0rem;
+	width: 100%;
+	height: auto;
+}
+
+.contents-box h2 {
+	margin-bottom: 1rem;
+	font-size: 2.5rem;
+	text-align: center;
+}
+
+.contents-box {
+	margin-bottom: 3rem;
+	padding: 3rem;
+	width: 24%;
+	background-color: #f0f0f0;
+}
+
+/* 画面の幅に応じて文字サイズなどを指定。 */
+@media screen and (max-width: 2000px){
+    ul dl dd {
+        font-size: 15px;/* 文字サイズ */
+    }
+
+    .contents-box h2 {
+        font-size: 19px;
+    }
+
+@media screen and (max-width: 1300px){
+    .contents-box {
+		width: 32%;
+    }    
+
+    ul dl dd {
+        font-size: 16px;/* 文字サイズ */
+    }
+
+    .contents-box h2 {
+        font-size: 20px;
+    }
+
+@media screen and (max-width: 1000px){
+	.contents-box {
+		width: 49%;
+    }
+
+    ul dl dd {
+        font-size: 25px;/* 文字サイズ */
+    }
+
+    .contents-box h2 {
+        font-size: 29px;
+    }
+}
+@media screen and (max-width: 910px){
+    ul dl dd {
+        font-size: 21px;/* 文字サイズ */
+    }
+
+    .contents-box h2 {
+        font-size: 25px;
+    }
+
+@media screen and (max-width: 800px){
+    ul dl dd {
+        font-size: 16px;/* 文字サイズ */
+    }
+
+    .contents-box h2 {
+        font-size: 20px;
+    }
+
+@media screen and (max-width: 625px){
+    ul dl dd {
+        font-size: 12px;/* 文字サイズ */
+    }
+
+    .contents-box h2 {
+        font-size: 16px;
+    }
+
+@media screen and (max-width: 500px){
+	.contents-wrap {
+		flex-direction: column;
+	}
+
+	.contents-box {
+		width: 100%;
+    }
+
+    ul dl dd {
+        font-size: 20px;/* 文字サイズ */
+    }
+
+    .contents-box h2 {
+        font-size: 24px;
+    }
+}
+
+
+/*////////////////////////*/
