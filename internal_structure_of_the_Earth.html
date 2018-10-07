@@ -38,7 +38,6 @@
 			animate();
 			render();
 
-
 			function init() {
 
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -69,6 +68,100 @@
 				var group = new THREE.Group();
 
 				// 内部構造記述開始
+				// 0
+    			var loader = new THREE.TextureLoader();
+				var texture = loader.load("https://m-kunugi.github.io/images/earth.jpg"); // 出典　https://visibleearth.nasa.gov/view.php?id=57752
+				depth = 0
+				i = (6400-depth)/500
+				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
+
+				var material = new THREE.MeshLambertMaterial( {
+
+					map: texture,
+					side: THREE.DoubleSide,
+					clippingPlanes: clipPlanes,//削る
+					clipIntersection: params.clipIntersection,
+					opacity: 0.8, 
+					transparent: true
+
+				} );
+
+				rotate = new THREE.Mesh(geometry, material);
+				group.add( rotate );
+				
+				// 410
+				depth = 410
+				i = (6400-depth)/500
+				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
+
+				var material = new THREE.MeshLambertMaterial( {
+
+					color: new THREE.Color( 0x228b22 ),
+					side: THREE.DoubleSide,
+					clippingPlanes: clipPlanes,
+					clipIntersection: params.clipIntersection,
+					opacity: 0.7, 
+					transparent: true
+
+				} );
+
+				group.add( new THREE.Mesh( geometry, material ) );
+
+				// 660
+				depth = 660
+				i = (6400-depth)/500
+				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
+
+				var material = new THREE.MeshLambertMaterial( {
+
+					color: new THREE.Color( 0xf0e68c ),
+					side: THREE.DoubleSide,
+					clippingPlanes: clipPlanes,
+					clipIntersection: params.clipIntersection,
+					opacity: 0.7, 
+					transparent: true
+
+				} );
+
+				group.add( new THREE.Mesh( geometry, material ) );
+
+				// 2600
+				depth = 2600
+				i = (6400-depth)/500
+				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
+
+				var material = new THREE.MeshLambertMaterial( {
+
+					color: new THREE.Color( 0xff7f50 ),
+					side: THREE.DoubleSide,
+					clippingPlanes: clipPlanes,
+					clipIntersection: params.clipIntersection,
+					opacity: 0.7, 
+					transparent: true
+
+				} );
+
+				group.add( new THREE.Mesh( geometry, material ) );
+
+				// 2900
+				depth = 2900
+				i = (6400-depth)/500
+				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
+
+				var material = new THREE.MeshLambertMaterial( {
+
+					color: new THREE.Color( 0xa9a9a9 ),
+					side: THREE.DoubleSide,
+					clippingPlanes: clipPlanes,
+					clipIntersection: params.clipIntersection,
+					opacity: 0.7, 
+					transparent: true
+
+				} );
+
+				group.add( new THREE.Mesh( geometry, material ) );
+
+				// 5100
 				depth = 5100
 				i = (6400-depth)/500
 				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
@@ -84,84 +177,11 @@
 
 				group.add( new THREE.Mesh( geometry, material ) );
 
-				depth = 2900
-				i = (6400-depth)/500
-				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
-
-				var material = new THREE.MeshLambertMaterial( {
-
-					color: new THREE.Color( Math.sin( i * 0.5 ) * 0.5 + 0.5, Math.cos( i * 1.5 ) * 0.5 + 0.5, Math.sin( i * 4.5 + 0 ) * 0.5 + 0.5 ),
-					side: THREE.DoubleSide,
-					clippingPlanes: clipPlanes,
-					clipIntersection: params.clipIntersection
-
-				} );
-
-				group.add( new THREE.Mesh( geometry, material ) );
-
-				depth = 2600
-				i = (6400-depth)/500
-				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
-
-				var material = new THREE.MeshLambertMaterial( {
-
-					color: new THREE.Color( Math.sin( i * 0.5 ) * 0.5 + 0.5, Math.cos( i * 1.5 ) * 0.5 + 0.5, Math.sin( i * 4.5 + 0 ) * 0.5 + 0.5 ),
-					side: THREE.DoubleSide,
-					clippingPlanes: clipPlanes,
-					clipIntersection: params.clipIntersection
-
-				} );
-
-				group.add( new THREE.Mesh( geometry, material ) );
-
-				depth = 660
-				i = (6400-depth)/500
-				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
-
-				var material = new THREE.MeshLambertMaterial( {
-
-					color: new THREE.Color( Math.sin( i * 0.5 ) * 0.5 + 0.5, Math.cos( i * 1.5 ) * 0.5 + 0.5, Math.sin( i * 4.5 + 0 ) * 0.5 + 0.5 ),
-					side: THREE.DoubleSide,
-					clippingPlanes: clipPlanes,
-					clipIntersection: params.clipIntersection
-
-				} );
-
-				group.add( new THREE.Mesh( geometry, material ) );
-
-				depth = 410
-				i = (6400-depth)/500
-				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
-
-				var material = new THREE.MeshLambertMaterial( {
-
-					color: new THREE.Color( Math.sin( i * 0.5 ) * 0.5 + 0.5, Math.cos( i * 1.5 ) * 0.5 + 0.5, Math.sin( i * 4.5 + 0 ) * 0.5 + 0.5 ),
-					side: THREE.DoubleSide,
-					clippingPlanes: clipPlanes,
-					clipIntersection: params.clipIntersection
-
-				} );
-
-				group.add( new THREE.Mesh( geometry, material ) );
-
-				// 追加：地球テクスチャーを準備
-    			var loader = new THREE.TextureLoader();
-				var texture = loader.load("https://kunugiha.github.io/images/earth.jpg");
-				depth = 0
-				i = (6400-depth)/500
-				var geometry = new THREE.SphereBufferGeometry( i, 48, 24 );
-
-				var material = new THREE.MeshLambertMaterial( {
-
-					map: texture,
-					clippingPlanes: clipPlanes,//削る
-					clipIntersection: params.clipIntersection
-
-				} );
-
-				mesh = new THREE.Mesh(geometry, material);
-    			mesh.overdraw = true;
-    			scene.add(mesh);
+				var geometry = new THREE.CircleGeometry( i, 100, 1.57, 1.57);
+				mesh = new THREE.Mesh(geometry, material);group.add( mesh );
+				mesh = new THREE.Mesh(geometry, material);mesh.rotation.x = 1.57;group.add( mesh );
+				mesh = new THREE.Mesh(geometry, material);mesh.rotation.y = 1.57;group.add( mesh );
+				//
 			
 				// 内部構造記述終了
 
@@ -233,14 +253,14 @@
 			}
 
 			function animate() {
+				
     			requestAnimationFrame(animate);
     			render();
 			}
 
-
 			function render() {
 
-				mesh.rotation.y += 0.005;
+				rotate.rotation.y += 0.005;
 				renderer.render( scene, camera );
 
 			}
