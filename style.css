@@ -208,7 +208,7 @@ border-bottom:2px solid #ccc;
 }
 
 section.content img{
-max-width:90%;
+max-width:100%;
 height:auto;
 }
 
@@ -805,4 +805,42 @@ width:98%;
 	width: 100%;
 	height: 100%;	
   }
+}
+
+/* 略 */
+ul li {
+	display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin: 0 0;/* 画像の前にニュルッと出るやつの余白 */
+    letter-spacing: 0;
+}
+ul dl {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    padding: 5% 5%;/* 画像の前にニュルッと出るやつの文字の周りの余白 */
+    box-sizing: border-box;
+    color: #fff;
+    background: rgba(128, 128, 128, 0.7);/* 画像の前にニュルッと出るやつの色 */
+}
+ul h1{
+	font-size:20px;
+	margin:10px 5px 5px;
+}
+ul h2{
+	margin:0px 5px 0px;
+}
+
+    /* https://web-bruno.com/flexbox-css3/ */
+.contents-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: start;
+}	
+.contents-box {
+	margin-bottom: 1rem;
+	padding: 0rem;
+	width: 100px;
+	background-color: #f0f0f0;
 }
