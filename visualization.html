@@ -119,11 +119,20 @@
 	<div id="wrapper">
 		<section id="main">
 			<section class="content">
+				<!----<p class="dateLabel">最終更新 2018/09/24</p>-->
+				<p class="dateLabel">
+					<script>
+						var modified = new Date(document.lastModified);
+						var year = modified.getFullYear();	
+						var month= modified.getMonth() + 1;
+						var date = modified.getDate();
+						document.write( "最終更新 " + year + "/" + month + "/" + date);	
+					</script>
+				</p>
 				<h3 class="heading">データの可視化の練習</h3>
 				<p>JavaScriptによるデータビジュアライゼーション入門(Stephen A. Thomas著、オライリージャパン、ISBN978-4-87311-746-1)を参考にデータの可視化を色々やってみました。</p>
-				<p><a class="scroll">本郷の1限に間に合うのはどっちのルートか？</a></p>
+				<p><a class="scroll">本郷の1限に間に合うのはどっちのルートか？</a></p><br>
 				<article class="post">
-					<p class="dateLabel">最終更新 2018/09/24</p>
 					<h3 class="scroll-target" id="train">本郷の1限に間に合うのはどっちのルートか？</h3>
 					<p>本郷キャンパスの1限(8:30)に間に合う為には、渋谷本郷三丁目間ではどっちが最速か考えました。ルートは銀座線〜赤坂見附乗り換え〜丸ノ内線と半蔵門線〜大手町乗り換え〜丸ノ内線の2通りです。</p>
 					<p>下の地図の左下のボタンを押してもらうとわかる通り、どちらのルートでもかかる時間に殆ど差はありません。</p>

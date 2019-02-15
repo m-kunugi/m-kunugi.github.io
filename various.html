@@ -36,6 +36,15 @@
 	<div id="wrapper">
 		<section id="main">
 			<section class="content">
+				<p class="dateLabel">
+					<script>
+						var modified = new Date(document.lastModified);
+						var year = modified.getFullYear();	
+						var month= modified.getMonth() + 1;
+						var date = modified.getDate();
+						document.write( "最終更新 " + year + "/" + month + "/" + date);
+					</script>
+				</p>
 				<h3 class="heading">色々なもの</h3>
 				<p>ここでは今まで私が作ってきたものを置いていく予定です。下のアイコンをクリックで詳細に飛びます。</p><br>
 				<div class="section-area">
@@ -79,8 +88,6 @@
 					</div>
 				</div>
 				<article class="post">
-					<p class="dateLabel">最終更新 2018/02/10</p>
-
 					<h3 class="scroll-target" id="haya2">gnuplotで描いたはやぶさ2の軌道(2019/2 作成)</h3>
 					<div class="a">
 						<iframe width="640" height="480" src="haya2.gif" class="alignleft"></iframe>
@@ -90,13 +97,13 @@
 					<div class="b">
 						<iframe src="haya2.mp4" class="alignleft"></iframe>
 						<p>小惑星探査機はやぶさ2の軌道をgnuplotで描きました。3分03秒のMP4ファイルになっています。期間はt=0 [day]（打上げ、2014年12月3日）からt=1832 [day]（2019年12月9日）までです。</p>
-						<p><a href="haya2.mp4">こちら</a>にGIFも用意しました。見たい方はご覧ください。</p>
+						<p><a href="haya2.gif">こちら</a>にGIFも用意しました。見たい方はご覧ください。</p>
 					</div>
 					<p>作り方をQiitaに投稿しました。<br><a href="https://qiita.com/mkunu/items/7f82fef8e06b6274a5a7">Gnuplotで、はやぶさ2の軌道アニメーションを作ってみた</a></p>
+					<p>他にもはやぶさ2に関するGIFやグラフを作りました。<a href="https://github.com/m-kunugi/gnuplot/tree/master/haya2">Github</a>に載せてあります。</p>
 					<br clear="all" />
 					<p>データの出典　<a href="http://www.hayabusa2.jaxa.jp/topics/20180228/">「はやぶさ２」の小惑星遷移軌道（改訂版）を公開します| こちら「はやぶさ２」運用室 | JAXA はやぶさ２プロジェクト</a><br>
 						GIFにする時の参考文献　<a href="http://www.natural-science.or.jp/article/20101203183935.php">gnuplotでアニメーション直接 gif アニメーションを出力する</a></p>
-					
 					<div class="pagenav">	
 						<span class="next"><a class="pagetop" rel="next">&#9650; トップへ</a></span>
 					</div>
