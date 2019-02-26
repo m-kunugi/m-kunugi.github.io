@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>探査機の軌道</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				margin: 0px;
+				background-color: #000000;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+
+		<script src="js/three.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script src="js/STLLoader.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		
+		<script>
+
+			var camera, scene, renderer;
+
+			var params = {
+				clipIntersection: true,
+				planeConstant: 0,
+				showHelpers: false
+			};
+
+			var clipPlanes = [
+				new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 ),
+				new THREE.Plane( new THREE.Vector3( 0, - 1, 0 ), 0 ),
+				new THREE.Plane( new THREE.Vector3( 0, 0, - 1 ), 0 )
+			];
+
+			var linelength;
+			var xVoyager1 = [], yVoyager1 = [], zVoyager1 = [], Voyager1;
+			loadCSV("data_from_nasa/Voyager1.csv", xVoyager1, yVoyager1, zVoyager1);
+			var xVoyager2 = [], yVoyager2 = [], zVoyager2 = [], Voyager2;
+			loadCSV("data_from_nasa/Voyager2.csv", xVoyager2, yVoyager2, zVoyager2);
+			var xPioneer10 = [], yPioneer10 = [], zPioneer10 = [], Pioneer10;
+			loadCSV("data_from_nasa/Pioneer10.csv", xPioneer10, yPioneer10, zPioneer10);
+			var xPioneer11 = [], yPioneer11 = [], zPioneer11 = [], Pioneer11;
+			loadCSV("data_from_nasa/Pioneer11.csv", xPioneer11, yPioneer11, zPioneer11);
+
+			var xJupiter = [], yJupiter = [], zJupiter = [], Jupiter;
+			loadCSV("data_from_nasa/Jupiter.csv", xJupiter, yJupiter, zJupiter);
+			var xSaturn = [], ySaturn = [], zSaturn = [], Saturn;
+			loadCSV("data_from_nasa/Saturn.csv", xSaturn, ySaturn, zSaturn);
+			var xUranus = [], yUranus = [], zUranus = [], Uranus;
+			loadCSV("data_from_nasa/Uranus.csv", xUranus, yUranus, zUranus);
+			var xNeptune = [], yNeptune = [], zNeptune = [], Neptune;
+			loadCSV("data_from_nasa/Neptune.csv", xNeptune, yNeptune, zNeptune);
+			
+			var zikan = 0;
+
+			init();
+			animate();
+			render();
+
+			function init() {
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.localClippingEnabled = true;
+				document.body.appendChild( renderer.domElement );
+
+				scene = new THREE.Scene();
+				scene.rotation.x = -Math.PI/2;//座標を直感に合わせる。
+				scene.rotation.z = -Math.PI/2;//座標を直感に合わせる。
+
+				camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 500 );
+				camera.position.set( 50, 50, 50 );
+
+				var controls = new THREE.OrbitControls( camera, renderer.domElement );
+				controls.addEventListener( 'change', render ); // use only if there is no animation loop
+				controls.minDistance = 40;
+				controls.maxDistance = 150;
+				controls.enablePan = false;
+
+				var light = new THREE.HemisphereLight( 0xffffff, 0x080808, 1 );
+				scene.add( light );
+
+				scene.add( new THREE.AmbientLight( 0x505050 ) );
+
+				//gridHelper = new THREE.GridHelper(200);
+				//gridHelper.rotation.x = Math.PI/2;
+				//scene.add(gridHelper);
+
+				scene.add(new THREE.AxisHelper(100));//x軸は赤, y軸は緑, z軸は青
+
+				var group = new THREE.Group();
+
+				// 以下で天体を描画
+				var loader = new THREE.STLLoader();
+				// Voyager1, 2
+        		loader.load("stl/Voyager_17.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
+            		console.log(geometry);
+            		var material = new THREE.MeshLambertMaterial({});
+					Voyager1 = new THREE.Mesh(geometry, material);
+					Voyager1.scale.set(0.1,0.1,0.1);
+					group.add(Voyager1);
+
+					Voyager2 = new THREE.Mesh(geometry, material);
+					Voyager2.scale.set(0.1,0.1,0.1);
+					group.add(Voyager2);
+				});
+
+				// Pioneer10, 11
+        		loader.load("stl/Pioneer.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
+            		console.log(geometry);
+            		var material = new THREE.MeshLambertMaterial({});
+					Pioneer10 = new THREE.Mesh(geometry, material);
+					Pioneer10.scale.set(0.1,0.1,0.1);
+					group.add(Pioneer10);
+
+					Pioneer11 = new THREE.Mesh(geometry, material);
+					Pioneer11.scale.set(0.1,0.1,0.1);
+					group.add(Pioneer11);
+				});
+		
+
+				// Jupiter
+				var loader = new THREE.TextureLoader(); // 出典　https://nasa3d.arc.nasa.gov/detail/jup0vss1
+				var texture = loader.load("images/jupitermap.jpg");
+				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
+				var material = new THREE.MeshLambertMaterial({map: texture});
+				Jupiter = new THREE.Mesh(geometry, material);
+				group.add( Jupiter );
+
+				// Saturn
+				var loader = new THREE.TextureLoader(); // 出典 https://nasa3d.arc.nasa.gov/detail/sat0fds1
+				var texture = loader.load("images/saturnmap.jpg");
+				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
+				var material = new THREE.MeshLambertMaterial({map: texture});
+				Saturn = new THREE.Mesh(geometry, material);
+				group.add( Saturn );
+
+				// Uranus
+				var loader = new THREE.TextureLoader();
+				var texture = loader.load("images/uranusmap.jpg");
+				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
+				var material = new THREE.MeshLambertMaterial({map: texture});
+				Uranus = new THREE.Mesh(geometry, material);
+				group.add( Uranus );
+
+				// Neptune
+    			var loader = new THREE.TextureLoader();
+				var texture = loader.load("images/neptunemap.jpg"); // 出典　https://visibleearth.nasa.gov/view.php?id=57752
+				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
+				var material = new THREE.MeshLambertMaterial({map: texture});
+				Neptune = new THREE.Mesh(geometry, material);
+				group.add( Neptune );
+
+				
+				
+				// 見やすくする為、補助的な円を描く
+				var geometry = new THREE.SphereBufferGeometry( 100, 48, 24 );
+				var material = new THREE.MeshLambertMaterial( {
+					color: new THREE.Color( 0xffffff ),
+					side: THREE.DoubleSide,
+					//clippingPlanes: clipPlanes,
+					clipIntersection: params.clipIntersection,
+					opacity: 0.2, 
+					transparent: true
+				} );
+
+				ball = new THREE.Mesh( geometry, material )
+				group.add( ball );
+				ball.rotation.x = Math.PI/2;
+
+				// 天体の描画終了
+
+				scene.add( group );
+
+				// helpers
+
+				var helpers = new THREE.Group();
+				helpers.add( new THREE.AxesHelper( 20 ) );
+				helpers.add( new THREE.PlaneHelper( clipPlanes[ 0 ], 200, 0xff0000 ) );
+				helpers.add( new THREE.PlaneHelper( clipPlanes[ 1 ], 200, 0x00ff00 ) );
+				helpers.add( new THREE.PlaneHelper( clipPlanes[ 2 ], 200, 0x0000ff ) );
+				helpers.visible = true;
+				scene.add( helpers );
+
+				// gui
+
+				var gui = new dat.GUI();
+
+				gui.add( params, 'showHelpers' ).name( 'show helpers' ).onChange( function ( value ) {
+					helpers.visible = value;
+					render();
+				} );
+				
+				//
+				window.addEventListener( 'resize', onWindowResize, false );
+			}
+
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				render();
+			}
+
+			function animate() {
+    			setTimeout(animate, 1000 / 5); //アニメーション速度指定
+    			render();
+			}
+
+			function loadCSV(targetFile, xarray, yarray, zarray) { // 参考　https://joyplot.com/documents/2017/03/01/xmlhttprequest-javascript-csv/
+				var allData = []; // 読み込んだデータを1行ずつ格納する配列
+
+				var request = new XMLHttpRequest(); // XMLHttpRequestの用意
+				request.open("get", targetFile, false);
+				request.send(null);
+				
+				var csvData = request.responseText; // 読み込んだCSVデータ
+				
+				var lines = csvData.split("\n"); // CSVの全行を取得
+				linelength = lines.length;
+
+				for (var i = 0; i < linelength; i++) {
+					var dataSet = lines[i].split(",").map(Number); // 1行ごとの処理 .map(Number)で文字を数字にする
+
+					xarray.push(dataSet[0]);
+					yarray.push(dataSet[1]);
+					zarray.push(dataSet[2]);
+				}
+			}
+			
+			function render() {
+				if (zikan < linelength) {
+					
+					Voyager1.position.set(xVoyager1[zikan], yVoyager1[zikan], zVoyager1[zikan]);
+					Voyager2.position.set(xVoyager2[zikan], yVoyager2[zikan], zVoyager2[zikan]);
+
+					Pioneer10.position.set(xPioneer10[zikan], yPioneer10[zikan], zPioneer10[zikan]);
+					Pioneer11.position.set(xPioneer11[zikan], yPioneer11[zikan], zPioneer11[zikan]);
+					 
+
+					Jupiter.position.set(xJupiter[zikan], yJupiter[zikan], zJupiter[zikan]);
+					Saturn.position.set(xSaturn[zikan], ySaturn[zikan], zSaturn[zikan]);
+					Uranus.position.set(xUranus[zikan], yUranus[zikan], zUranus[zikan]);
+					Neptune.position.set(xNeptune[zikan], yNeptune[zikan], zNeptune[zikan]);
+					
+					
+					zikan += 1;
+				}
+				else {
+					zikan = 0;//最後まで行ったら最初に戻る。
+				}
+				
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+
+	</body>
+</html>

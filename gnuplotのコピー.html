@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>CSV読み込みサンプルページ</title>
+</head>
+ 
+<body>
+    <h1>CSV読み込みサンプル</h1>
+    <p>読み込んだCSVが開発コンソールに表示されます。</p>
+</body>
+ 
+<script>
+ 
+var xarray = [];
+var yarray = [];
+var zarray = [];
+var linelength;
+
+function loadCSV(targetFile) {
+ 
+    // 読み込んだデータを1行ずつ格納する配列
+    var allData = [];
+ 
+    // XMLHttpRequestの用意
+    var request = new XMLHttpRequest();
+    request.open("get", targetFile, false);
+    request.send(null);
+ 
+    // 読み込んだCSVデータ
+    var csvData = request.responseText;
+ 
+    // CSVの全行を取得
+	var lines = csvData.split("\n");
+	linelength = lines.length;
+
+    for (var i = 0; i < linelength; i++) {
+        // 1行ごとの処理
+        var wordSet = lines[i].split(",");
+ 
+        xarray.push(Number(wordSet[0]));
+		yarray.push(Number(wordSet[1]));
+		zarray.push(Number(wordSet[2]));
+    }
+
+}
+ 
+loadCSV("data_from_nasa/Voyager1.csv");
+for (var i = 0; i < linelength; i++) {
+document.write( xarray[i] + "/" + yarray[i] + "/" + zarray[i] + "\n");
+}
+ 
+</script>
+ 
+</html>
