@@ -5,9 +5,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="twitter:card" content="summary_large_image">
-		<meta property="og:image" content="data_from_nasa/probe.gif">
-		<meta property="og:title" content="パイオニア10号・11号、ボイジャー1号・2号の位置（1977年〜1990年）">
-		<meta property="og:description" content="この画像はGuplotで描いたものです。リンク先はthree.jsで描いてあります。">
+		<meta property="og:image" content="https://m-kunugi.github.io/data_from_nasa/probe.gif">
+		<meta property="og:title" content="パイオニア10号・11号、ボイジャー1号・2号（+木星・土星・天王星・海王星）の位置（1977年〜1990年）">
+		<meta property="og:description" content="この画像はGuplotで描いたもの。リンク先はthree.jsで描いてある。また、リンク先の惑星は実際の1000倍の大きさに、各探査機はかなりの大きさに拡大してある。">
 		
 		<style>
 			body {
@@ -81,7 +81,7 @@
 
 				var controls = new THREE.OrbitControls( camera, renderer.domElement );
 				controls.addEventListener( 'change', render ); // use only if there is no animation loop
-				controls.minDistance = 40;
+				controls.minDistance = 10;
 				controls.maxDistance = 150;
 				controls.enablePan = false;
 
@@ -100,52 +100,72 @@
 				var loader = new THREE.STLLoader();
 				// Pioneer10, 11
         		loader.load("stl/Pioneer.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
-            		console.log(geometry);
+            		//console.log(geometry);
             		var material = new THREE.MeshLambertMaterial({});
 					Pioneer10 = new THREE.Mesh(geometry, material);
-					Pioneer10.scale.set(0.1,0.1,0.1);
+					Pioneer10.scale.set(0.05,0.05,0.05);
 					group.add(Pioneer10);
 
 					Pioneer11 = new THREE.Mesh(geometry, material);
-					Pioneer11.scale.set(0.1,0.1,0.1);
+					Pioneer11.scale.set(0.05,0.05,0.05);
 					group.add(Pioneer11);
 				});
 
 				// Voyager1, 2
         		loader.load("stl/Voyager_17.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
-            		console.log(geometry);
+            		//console.log(geometry);
             		var material = new THREE.MeshLambertMaterial({});
 					Voyager1 = new THREE.Mesh(geometry, material);
-					Voyager1.scale.set(0.1,0.1,0.1);
+					Voyager1.scale.set(0.05,0.05,0.05);
 					group.add(Voyager1);
 
 					Voyager2 = new THREE.Mesh(geometry, material);
-					Voyager2.scale.set(0.1,0.1,0.1);
+					Voyager2.scale.set(0.05,0.05,0.05);
 					group.add(Voyager2);
 				});
 				scene.add( group );
 
 				// 次に惑星
+				// 大きさの参考 http://yamagamiplanning.sakura.ne.jp/guide/planets/planetsize
 				// Jupiter
 				var loader = new THREE.TextureLoader(); // 出典　https://nasa3d.arc.nasa.gov/detail/jup0vss1
 				var texture = loader.load("images/jupitermap.jpg");
-				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
+				var geometry = new THREE.SphereBufferGeometry( 0.48, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Jupiter = new THREE.Mesh(geometry, material);
+				Jupiter.rotation.x = -Math.PI/2
 				scene.add( Jupiter );
 
 				// Saturn
 				var loader = new THREE.TextureLoader(); // 出典 https://nasa3d.arc.nasa.gov/detail/sat0fds1
 				var texture = loader.load("images/saturnmap.jpg");
-				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
+				var geometry = new THREE.SphereBufferGeometry( 0.40, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Saturn = new THREE.Mesh(geometry, material);
+				Saturn.rotation.x = -Math.PI/2
 				scene.add( Saturn );
+
+				loader = new THREE.TextureLoader(); // https://liginc.co.jp/357018
+				loader.load('https://raw.githubusercontent.com/82mou/sandbox/master/universe/img/saturn-ring.jpg', function(texture) {
+					// Meshを作る
+					torus = new THREE.Mesh(
+						new THREE.TorusGeometry(0.91, 0.2, 2, 1000), // 芯円半径、断面円半径、断面円分割、芯円分割
+						new THREE.MeshPhongMaterial({ // 材質
+							map: texture,
+							opacity:0.7,
+							transparent: true
+						}) 	
+					);
+					torus.rotation.x = Math.PI/2;
+					torus.position.set(0, 0, 0);
+					Saturn.add(torus);
+					render();
+				});
 
 				// Uranus
 				var loader = new THREE.TextureLoader();
 				var texture = loader.load("images/uranusmap.jpg");
-				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
+				var geometry = new THREE.SphereBufferGeometry( 0.17, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Uranus = new THREE.Mesh(geometry, material);
 				scene.add( Uranus );
@@ -153,12 +173,11 @@
 				// Neptune
     			var loader = new THREE.TextureLoader();
 				var texture = loader.load("images/neptunemap.jpg"); // 出典　https://visibleearth.nasa.gov/view.php?id=57752
-				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
+				var geometry = new THREE.SphereBufferGeometry( 0.17, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Neptune = new THREE.Mesh(geometry, material);
+				Neptune.rotation.x = -Math.PI/2
 				scene.add( Neptune );
-
-				
 				
 				// 見やすくする為、補助的な円を描く
 				var geometry = new THREE.SphereBufferGeometry( 100, 48, 24 );
@@ -196,19 +215,19 @@
 					helpers.visible = value;
 					render();
 				} );
-				gui.add( params, 'showProbe' ).name( 'Pioneer10' ).onChange( function ( value ) {
+				gui.add( params, 'showProbe' ).name( 'Pioneer 10' ).onChange( function ( value ) {
 					Pioneer10.visible = value;
 					render();
 				} );
-				gui.add( params, 'showProbe' ).name( 'Pioneer11' ).onChange( function ( value ) {
+				gui.add( params, 'showProbe' ).name( 'Pioneer 11' ).onChange( function ( value ) {
 					Pioneer11.visible = value;
 					render();
 				} );
-				gui.add( params, 'showProbe' ).name( 'Voyager1' ).onChange( function ( value ) {
+				gui.add( params, 'showProbe' ).name( 'Voyager 1' ).onChange( function ( value ) {
 					Voyager1.visible = value;
 					render();
 				} );
-				gui.add( params, 'showProbe' ).name( 'Voyager2' ).onChange( function ( value ) {
+				gui.add( params, 'showProbe' ).name( 'Voyager 2' ).onChange( function ( value ) {
 					Voyager2.visible = value;
 					render();
 				} );
