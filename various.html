@@ -36,15 +36,6 @@
 	<div id="wrapper">
 		<section id="main">
 			<section class="content">
-				<p class="dateLabel">
-					<script>
-						var modified = new Date(document.lastModified);
-						var year = modified.getFullYear();	
-						var month= modified.getMonth() + 1;
-						var date = modified.getDate();
-						document.write( "最終更新 " + year + "/" + month + "/" + date);
-					</script>
-				</p>
 				<h3 class="heading">色々なもの</h3>
 				<p>ここでは今まで私が作ってきたものを置いていく予定です。下のアイコンをクリックで詳細に飛びます。</p><br>
 				<div class="section-area">
@@ -60,7 +51,7 @@
 						</div>
 						<div class="contents-box">
 							<a class="scroll">
-								<ul><li><img src="images/banners/Earth.jpeg" alt=""><dl>
+								<ul><li><img src="images/banners/earth.jpg" alt=""><dl>
 									<h1>地球の<br>内部構造</h1>
 									<p>&darr;&darr;&darr;&darr;&darr;&darr;</p>
 									<p style="padding:100%;"></p>
@@ -78,7 +69,7 @@
 						</div>
 						<div class="contents-box">
 							<a class="scroll">
-								<ul><li><img src="images/banners/Earth.jpeg" alt=""><dl>
+								<ul><li><img src="images/banners/earth.jpg" alt=""><dl>
 									<h1>スイングバイ</h1>
 									<p>&darr;&darr;&darr;&darr;&darr;&darr;</p>
 									<p style="padding-top:100%;"></p>
@@ -87,6 +78,15 @@
 						</div>
 					</div>
 				</div>
+				<p class="dateLabel">
+					<script>
+						var modified = new Date(document.lastModified);
+						var year = modified.getFullYear();	
+						var month= modified.getMonth() + 1;
+						var date = modified.getDate();
+						document.write( "最終更新 " + year + "/" + month + "/" + date);
+					</script>
+				</p>
 				<article class="post">
 					<h3 class="scroll-target" id="haya2">gnuplotで描いたはやぶさ2の軌道(2019/2 作成)</h3>
 					<div class="a">
@@ -118,6 +118,8 @@
 						<p>小さな画面の方は<a href="internal_structure_of_the_Earth.html">こちら</a>をご覧ください。</p>
 					</div>
 					<p>地球の内部構造です。</p>
+					<br clear="all" />
+					<p>色分けの際の参考文献　<a href="https://www.jishin.go.jp/main/herpnews/series/2010/1010_04.html">「地震本部ニュース」平成22年（2010年）10月号</a></p>
 					<div class="pagenav">	
 						<span class="next"><a class="pagetop" rel="next">&#9650; トップへ</a></span>
 					</div>

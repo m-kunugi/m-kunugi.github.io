@@ -5,9 +5,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="twitter:card" content="summary_large_image">
-		<meta property="og:image" content="https://m-kunugi.github.io/data_from_nasa/probe.gif">
-		<meta property="og:title" content="パイオニア10号・11号、ボイジャー1号・2号（+木星・土星・天王星・海王星）の位置（1977年〜1990年）">
-		<meta property="og:description" content="この画像はGuplotで描いたもの。リンク先はthree.jsで描いてある。また、リンク先の惑星は実際の1000倍の大きさに、各探査機はかなりの大きさに拡大してある。">
+		<meta property="og:image" content="https://m-kunugi.github.io/data_nasa/probe.gif">
+		<meta property="og:title" content="パイオニア10号・11号、ボイジャー1号・2号の位置（1977年〜1990年）">
+		<meta property="og:description" content="この画像はGuplotで、リンク先はthree.jsで描いてある。リンク先の惑星は実際の1000倍、各探査機はかなりの大きさに拡大してある。">
 		
 		<style>
 			body {
@@ -41,22 +41,22 @@
 
 			var linelength;
 			var xVoyager1 = [], yVoyager1 = [], zVoyager1 = [], Voyager1;
-			loadCSV("data_from_nasa/Voyager1.csv", xVoyager1, yVoyager1, zVoyager1);
+			loadCSV("data_nasa/Voyager1.csv", xVoyager1, yVoyager1, zVoyager1);
 			var xVoyager2 = [], yVoyager2 = [], zVoyager2 = [], Voyager2;
-			loadCSV("data_from_nasa/Voyager2.csv", xVoyager2, yVoyager2, zVoyager2);
+			loadCSV("data_nasa/Voyager2.csv", xVoyager2, yVoyager2, zVoyager2);
 			var xPioneer10 = [], yPioneer10 = [], zPioneer10 = [], Pioneer10;
-			loadCSV("data_from_nasa/Pioneer10.csv", xPioneer10, yPioneer10, zPioneer10);
+			loadCSV("data_nasa/Pioneer10.csv", xPioneer10, yPioneer10, zPioneer10);
 			var xPioneer11 = [], yPioneer11 = [], zPioneer11 = [], Pioneer11;
-			loadCSV("data_from_nasa/Pioneer11.csv", xPioneer11, yPioneer11, zPioneer11);
+			loadCSV("data_nasa/Pioneer11.csv", xPioneer11, yPioneer11, zPioneer11);
 
 			var xJupiter = [], yJupiter = [], zJupiter = [], Jupiter;
-			loadCSV("data_from_nasa/Jupiter.csv", xJupiter, yJupiter, zJupiter);
+			loadCSV("data_nasa/Jupiter.csv", xJupiter, yJupiter, zJupiter);
 			var xSaturn = [], ySaturn = [], zSaturn = [], Saturn;
-			loadCSV("data_from_nasa/Saturn.csv", xSaturn, ySaturn, zSaturn);
+			loadCSV("data_nasa/Saturn.csv", xSaturn, ySaturn, zSaturn);
 			var xUranus = [], yUranus = [], zUranus = [], Uranus;
-			loadCSV("data_from_nasa/Uranus.csv", xUranus, yUranus, zUranus);
+			loadCSV("data_nasa/Uranus.csv", xUranus, yUranus, zUranus);
 			var xNeptune = [], yNeptune = [], zNeptune = [], Neptune;
-			loadCSV("data_from_nasa/Neptune.csv", xNeptune, yNeptune, zNeptune);
+			loadCSV("data_nasa/Neptune.csv", xNeptune, yNeptune, zNeptune);
 			
 			var zikan = 0;
 
@@ -99,7 +99,7 @@
 				var group = new THREE.Group();
 				var loader = new THREE.STLLoader();
 				// Pioneer10, 11
-        		loader.load("stl/Pioneer.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
+        		loader.load("data_nasa/Pioneer.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
             		//console.log(geometry);
             		var material = new THREE.MeshLambertMaterial({});
 					Pioneer10 = new THREE.Mesh(geometry, material);
@@ -112,7 +112,7 @@
 				});
 
 				// Voyager1, 2
-        		loader.load("stl/Voyager_17.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
+        		loader.load("data_nasa/Voyager_17.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
             		//console.log(geometry);
             		var material = new THREE.MeshLambertMaterial({});
 					Voyager1 = new THREE.Mesh(geometry, material);
@@ -129,7 +129,7 @@
 				// 大きさの参考 http://yamagamiplanning.sakura.ne.jp/guide/planets/planetsize
 				// Jupiter
 				var loader = new THREE.TextureLoader(); // 出典　https://nasa3d.arc.nasa.gov/detail/jup0vss1
-				var texture = loader.load("images/jupitermap.jpg");
+				var texture = loader.load("data_nasa/jupitermap.jpg");
 				var geometry = new THREE.SphereBufferGeometry( 0.48, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Jupiter = new THREE.Mesh(geometry, material);
@@ -138,7 +138,7 @@
 
 				// Saturn
 				var loader = new THREE.TextureLoader(); // 出典 https://nasa3d.arc.nasa.gov/detail/sat0fds1
-				var texture = loader.load("images/saturnmap.jpg");
+				var texture = loader.load("data_nasa/saturnmap.jpg");
 				var geometry = new THREE.SphereBufferGeometry( 0.40, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Saturn = new THREE.Mesh(geometry, material);
@@ -164,7 +164,7 @@
 
 				// Uranus
 				var loader = new THREE.TextureLoader();
-				var texture = loader.load("images/uranusmap.jpg");
+				var texture = loader.load("data_nasa/uranusmap.jpg");
 				var geometry = new THREE.SphereBufferGeometry( 0.17, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Uranus = new THREE.Mesh(geometry, material);
@@ -172,7 +172,7 @@
 
 				// Neptune
     			var loader = new THREE.TextureLoader();
-				var texture = loader.load("images/neptunemap.jpg"); // 出典　https://visibleearth.nasa.gov/view.php?id=57752
+				var texture = loader.load("data_nasa/neptunemap.jpg"); // 出典　https://visibleearth.nasa.gov/view.php?id=57752
 				var geometry = new THREE.SphereBufferGeometry( 0.17, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Neptune = new THREE.Mesh(geometry, material);
