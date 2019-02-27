@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>探査機の軌道</title>
+		<title>探査機の位置</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta property="og:image" content="data_from_nasa/probe.gif">
+		<meta property="og:title" content="パイオニア10号・11号、ボイジャー1号・2号の位置（1977年〜1990年）">
+		<meta property="og:description" content="この画像はGuplotで描いたものです。リンク先はthree.jsで描いてあります。">
+		
 		<style>
 			body {
 				margin: 0px;
@@ -24,9 +29,8 @@
 			var camera, scene, renderer;
 
 			var params = {
-				clipIntersection: true,
-				planeConstant: 0,
-				showHelpers: false
+				showHelpers: true,
+				showProbe: true
 			};
 
 			var clipPlanes = [
@@ -86,29 +90,14 @@
 
 				scene.add( new THREE.AmbientLight( 0x505050 ) );
 
-				//gridHelper = new THREE.GridHelper(200);
-				//gridHelper.rotation.x = Math.PI/2;
-				//scene.add(gridHelper);
+				//scene.add(new THREE.AxisHelper(100));//x軸は赤, y軸は緑, z軸は青
 
-				scene.add(new THREE.AxisHelper(100));//x軸は赤, y軸は緑, z軸は青
-
-				var group = new THREE.Group();
-
+				
 				// 以下で天体を描画
+
+				// まずは探査機
+				var group = new THREE.Group();
 				var loader = new THREE.STLLoader();
-				// Voyager1, 2
-        		loader.load("stl/Voyager_17.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
-            		console.log(geometry);
-            		var material = new THREE.MeshLambertMaterial({});
-					Voyager1 = new THREE.Mesh(geometry, material);
-					Voyager1.scale.set(0.1,0.1,0.1);
-					group.add(Voyager1);
-
-					Voyager2 = new THREE.Mesh(geometry, material);
-					Voyager2.scale.set(0.1,0.1,0.1);
-					group.add(Voyager2);
-				});
-
 				// Pioneer10, 11
         		loader.load("stl/Pioneer.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
             		console.log(geometry);
@@ -121,15 +110,29 @@
 					Pioneer11.scale.set(0.1,0.1,0.1);
 					group.add(Pioneer11);
 				});
-		
 
+				// Voyager1, 2
+        		loader.load("stl/Voyager_17.stl", function (geometry) { // 出典 https://nasa3d.arc.nasa.gov/detail/jpl-vtad-voyager
+            		console.log(geometry);
+            		var material = new THREE.MeshLambertMaterial({});
+					Voyager1 = new THREE.Mesh(geometry, material);
+					Voyager1.scale.set(0.1,0.1,0.1);
+					group.add(Voyager1);
+
+					Voyager2 = new THREE.Mesh(geometry, material);
+					Voyager2.scale.set(0.1,0.1,0.1);
+					group.add(Voyager2);
+				});
+				scene.add( group );
+
+				// 次に惑星
 				// Jupiter
 				var loader = new THREE.TextureLoader(); // 出典　https://nasa3d.arc.nasa.gov/detail/jup0vss1
 				var texture = loader.load("images/jupitermap.jpg");
 				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Jupiter = new THREE.Mesh(geometry, material);
-				group.add( Jupiter );
+				scene.add( Jupiter );
 
 				// Saturn
 				var loader = new THREE.TextureLoader(); // 出典 https://nasa3d.arc.nasa.gov/detail/sat0fds1
@@ -137,7 +140,7 @@
 				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Saturn = new THREE.Mesh(geometry, material);
-				group.add( Saturn );
+				scene.add( Saturn );
 
 				// Uranus
 				var loader = new THREE.TextureLoader();
@@ -145,7 +148,7 @@
 				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Uranus = new THREE.Mesh(geometry, material);
-				group.add( Uranus );
+				scene.add( Uranus );
 
 				// Neptune
     			var loader = new THREE.TextureLoader();
@@ -153,7 +156,7 @@
 				var geometry = new THREE.SphereBufferGeometry( 0.5, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Neptune = new THREE.Mesh(geometry, material);
-				group.add( Neptune );
+				scene.add( Neptune );
 
 				
 				
@@ -169,21 +172,20 @@
 				} );
 
 				ball = new THREE.Mesh( geometry, material )
-				group.add( ball );
+				scene.add( ball );
 				ball.rotation.x = Math.PI/2;
-
 				// 天体の描画終了
-
-				scene.add( group );
 
 				// helpers
 
 				var helpers = new THREE.Group();
-				helpers.add( new THREE.AxesHelper( 20 ) );
+				helpers.add( new THREE.AxesHelper( 100 ) );
 				helpers.add( new THREE.PlaneHelper( clipPlanes[ 0 ], 200, 0xff0000 ) );
 				helpers.add( new THREE.PlaneHelper( clipPlanes[ 1 ], 200, 0x00ff00 ) );
 				helpers.add( new THREE.PlaneHelper( clipPlanes[ 2 ], 200, 0x0000ff ) );
-				helpers.visible = true;
+				gridHelper = new THREE.GridHelper(200);
+				gridHelper.rotation.x = Math.PI/2;
+				helpers.add(gridHelper);
 				scene.add( helpers );
 
 				// gui
@@ -192,6 +194,22 @@
 
 				gui.add( params, 'showHelpers' ).name( 'show helpers' ).onChange( function ( value ) {
 					helpers.visible = value;
+					render();
+				} );
+				gui.add( params, 'showProbe' ).name( 'Pioneer10' ).onChange( function ( value ) {
+					Pioneer10.visible = value;
+					render();
+				} );
+				gui.add( params, 'showProbe' ).name( 'Pioneer11' ).onChange( function ( value ) {
+					Pioneer11.visible = value;
+					render();
+				} );
+				gui.add( params, 'showProbe' ).name( 'Voyager1' ).onChange( function ( value ) {
+					Voyager1.visible = value;
+					render();
+				} );
+				gui.add( params, 'showProbe' ).name( 'Voyager2' ).onChange( function ( value ) {
+					Voyager2.visible = value;
 					render();
 				} );
 				
@@ -207,7 +225,7 @@
 			}
 
 			function animate() {
-    			setTimeout(animate, 1000 / 5); //アニメーション速度指定
+    			setTimeout(animate, 1000 / 10); //アニメーション速度指定
     			render();
 			}
 
@@ -234,28 +252,22 @@
 			
 			function render() {
 				if (zikan < linelength) {
-					
-					Voyager1.position.set(xVoyager1[zikan], yVoyager1[zikan], zVoyager1[zikan]);
-					Voyager2.position.set(xVoyager2[zikan], yVoyager2[zikan], zVoyager2[zikan]);
-
 					Pioneer10.position.set(xPioneer10[zikan], yPioneer10[zikan], zPioneer10[zikan]);
 					Pioneer11.position.set(xPioneer11[zikan], yPioneer11[zikan], zPioneer11[zikan]);
-					 
+					Voyager1.position.set(xVoyager1[zikan], yVoyager1[zikan], zVoyager1[zikan]);
+					Voyager2.position.set(xVoyager2[zikan], yVoyager2[zikan], zVoyager2[zikan]);
 
 					Jupiter.position.set(xJupiter[zikan], yJupiter[zikan], zJupiter[zikan]);
 					Saturn.position.set(xSaturn[zikan], ySaturn[zikan], zSaturn[zikan]);
 					Uranus.position.set(xUranus[zikan], yUranus[zikan], zUranus[zikan]);
 					Neptune.position.set(xNeptune[zikan], yNeptune[zikan], zNeptune[zikan]);
-					
-					
+
 					zikan += 1;
 				}
 				else {
 					zikan = 0;//最後まで行ったら最初に戻る。
 				}
-				
 				renderer.render( scene, camera );
-
 			}
 
 		</script>
