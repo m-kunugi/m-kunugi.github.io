@@ -81,7 +81,7 @@
 
 				var controls = new THREE.OrbitControls( camera, renderer.domElement );
 				controls.addEventListener( 'change', render ); // use only if there is no animation loop
-				controls.minDistance = 10;
+				controls.minDistance = 40;
 				controls.maxDistance = 150;
 				controls.enablePan = false;
 
@@ -133,7 +133,7 @@
 				var geometry = new THREE.SphereBufferGeometry( 0.48, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Jupiter = new THREE.Mesh(geometry, material);
-				Jupiter.rotation.x = -Math.PI/2
+				Jupiter.rotation.x = Math.PI/2
 				scene.add( Jupiter );
 
 				// Saturn
@@ -142,7 +142,7 @@
 				var geometry = new THREE.SphereBufferGeometry( 0.40, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Saturn = new THREE.Mesh(geometry, material);
-				Saturn.rotation.x = -Math.PI/2
+				Saturn.rotation.x = Math.PI/2
 				scene.add( Saturn );
 
 				loader = new THREE.TextureLoader(); // https://liginc.co.jp/357018
@@ -156,7 +156,7 @@
 							transparent: true
 						}) 	
 					);
-					torus.rotation.x = Math.PI/2;
+					torus.rotation.x = -Math.PI/2;
 					torus.position.set(0, 0, 0);
 					Saturn.add(torus);
 					render();
@@ -176,7 +176,7 @@
 				var geometry = new THREE.SphereBufferGeometry( 0.17, 48, 24 );
 				var material = new THREE.MeshLambertMaterial({map: texture});
 				Neptune = new THREE.Mesh(geometry, material);
-				Neptune.rotation.x = -Math.PI/2
+				Neptune.rotation.x = Math.PI/2
 				scene.add( Neptune );
 				
 				// 見やすくする為、補助的な円を描く
@@ -184,8 +184,6 @@
 				var material = new THREE.MeshLambertMaterial( {
 					color: new THREE.Color( 0xffffff ),
 					side: THREE.DoubleSide,
-					//clippingPlanes: clipPlanes,
-					clipIntersection: params.clipIntersection,
 					opacity: 0.2, 
 					transparent: true
 				} );

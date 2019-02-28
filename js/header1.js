@@ -11,11 +11,6 @@ document.write('\
 <script src="js/script.js"></script>\
 <script src="js/scroll.js"></script>\
 \
-<meta name="twitter:card" content="summary" />\
-<meta property="og:title" content="Kunugi\'s Website" />\
-<meta property="og:description" content="趣味のサイトです" />\
-<meta property="og:image" content="https://kunugiha.github.io/images/banners/icon.png" />\
-\
 <header id="header" role="banner">\
 		<div class="inner">\
 			<div class="logo">\
