@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">	
+	<meta name="description" content="フォトギャラリー">
+	<title>フォトギャラリー</title>
+	<link rel="stylesheet" href="css/lightbox.css">
+	<script type="text/javascript" src="js/instafeed.min.js"></script>
+	<script type="text/javascript">
+		var feed = new Instafeed({
+			clientId: '4093f98813d04f6c95a15372c86e5280',
+			get: 'user', 
+			userId: '6647722878',
+			accessToken: '6647722878.4093f98.226b17b8020745ffabcd92884a596d4b',
+			links: true,
+			limit: 18, // 取得件数 
+			resolution:'low_resolution', // thumbnail (default) - 150x150 | low_resolution - 306x306 | standard_resolution - 612x612
+			template: '<article class="grid" style="margin-right:auto; margin-left:auto; width:25%;">\
+					<p class="img"><a href="{{image}}" data-lightbox="group" data-title="{{caption}} (いいね{{likes}}件)"><img src="{{image}}" alt="" /></a></p>\
+					</article>' // 画像URL：{{image}} リンク：{{link}} キャプションテキスト{{caption}} いいね数：{{likes}} コメント数：{{comments}}
+		});
+		feed.run();
+		</script>
+</head>
+
+<body>
+	
+	<script type="text/javascript" src="js/header1.js"></script>
+
+	<li><a href="index.html"><strong>トップページ</strong><br /><span>Top</span></a></li>						
+	<li><a href="various.html"><strong>色々なもの</strong><br /><span>Various things</span></a>	
+		<ul class="sub-menu">
+			<li><a href="various.html#probe">探査機の位置</a></li>
+			<li><a href="various.html#haya2">はやぶさ2の軌道</a></li>
+			<li><a href="various.html#Earth">地球の内部構造</a></li>	
+			<li><a href="various.html#train">地方鉄道</a></li>					
+			<li><a href="various.html#swingby">スイングバイ</a></li>					
+		</ul>
+	</li>
+	<li><a href="visualization.html"><strong>データの可視化の練習</strong><br /><span>Data Visualization</span></a>
+		<ul class="sub-menu">	
+			<li><a href="visualization.html#train">最速手段</a></li>						
+		</ul>
+	</li>
+	<li class="current-menu-item"><a href="photos.html"><strong>フォトギャラリー</strong><br /><span>Photos</span></a></li>
+	
+	<script type="text/javascript" src="js/header2.js"></script>
+
+	<div id="wrapper">
+		<section id="main">
+			<section class="content">
+				<h3 class="heading">フォトギャラリー</h3>
+				<p>ここでは今まで私が撮ってきたものを置いていく予定です。</p><br>
+				<div id="instafeed"></div>
+				<p class="dateLabel">
+					<script>
+						var modified = new Date(document.lastModified);
+						var year = modified.getFullYear();	
+						var month= modified.getMonth() + 1;
+						var date = modified.getDate();
+						document.write( "最終更新 " + year + "/" + month + "/" + date);
+					</script>
+				</p>
+				
+			</section>
+			<div class="pagenav">
+				<span class="prev"><a href="index.html" rel="prev">&laquo; 前のページ</a></span>
+				<span class="next"><a href="index.html" rel="next">次のページ &raquo;</a></span>
+			</div>
+		</section>
+	</div>
+
+	<script type="text/javascript" src="js/footer.js"></script>	
+
+	<!--https://kigiroku.com/frontend/lightbox.html-->
+	<script type="text/javascript" src="js/lightbox.js"></script>
+	<script>
+			lightbox.option({
+				'wrapAround': true,
+				'alwaysShowNavOnTouchDevices': true,
+				'fitImagesInViewport': true
+			})
+		</script>
+</body>
+</html>
