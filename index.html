@@ -68,6 +68,19 @@
     </div>
 
 	<div id="wrapper">
+		<section class="content">
+			<h3 class="heading">このサイトの概要</h3>
+			<p>このサイトは以下の４つのコンテンツによって構成されています。</p>
+			<p class="dateLabel">
+				<script>
+					var modified = new Date(document.lastModified);
+					var year = modified.getFullYear();	
+					var month= modified.getMonth() + 1;
+					var date = modified.getDate();
+					document.write( "最終更新 " + year + "/" + month + "/" + date);
+				</script>
+			</p>
+		</section>
 		<section class="gridWrapper">
 			<article class="grid">
 				<div class="box">
@@ -96,9 +109,9 @@
 			<article class="grid">
 				<div class="box">
 					<h3>フォトギャラリー</h3>
-					<p class="img"><a href="visualization.html"><img src="images/banners/eyecatch4.jpg" alt="" /></a></p>
+					<p class="img"><a href="photos.html"><img src="images/banners/eyecatch4.jpg" alt="" /></a></p>
 					<p>いい感じに撮れた写真を載せていく予定。 &#8230;</p>
-					<p class="readmore"><a href="photo.html">詳細を確認する</a></p>
+					<p class="readmore"><a href="photos.html">詳細を確認する</a></p>
 				</div>
 			</article>
 		</section>
@@ -111,11 +124,14 @@
 				<div class="b">
 					<img src="images/banners/sample1.jpg" alt="" class="aligncenter"></iframe>
 				</div>
-				<p>webの練習の為、作ったサイトです。各画面サイズへの対応も考慮しました。</p>
+				<p>Webサイト構築の練習の為、作ったサイトです。各画面サイズへの対応も考慮しました。</p>
 				<p>GitHub Pagesを利用しています。</p>
 				<p>関連リンク<br>
-				   Github <a href="https://github.com/m-kunugi">https://github.com/m-kunugi</a><br>
+				   GitHub <a href="https://github.com/m-kunugi">https://github.com/m-kunugi</a><br>
 				   Qiita  <a href="https://qiita.com/mkunu">https://qiita.com/mkunu</a><br>
+				</p>
+				<p>お問い合わせ<br>
+					kunugiweb[at]gmail.com [at]は@に変えてください。
 				</p>
 			</article>
 		</section>
