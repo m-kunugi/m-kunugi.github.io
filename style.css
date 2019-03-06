@@ -832,7 +832,8 @@ ul h2{
 	margin:0px 5px 0px;
 }
 
-    /* https://web-bruno.com/flexbox-css3/ */
+/* https://web-bruno.com/flexbox-css3/ */
+/* various.htmlで使う。 */
 .contents-wrap {
 	display: flex;
 	flex-wrap: wrap;

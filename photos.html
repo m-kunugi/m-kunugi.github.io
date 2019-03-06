@@ -16,10 +16,10 @@
 			accessToken: '6647722878.4093f98.226b17b8020745ffabcd92884a596d4b',
 			links: true,
 			limit: 18, // 取得件数 
-			resolution:'low_resolution', // thumbnail (default) - 150x150 | low_resolution - 306x306 | standard_resolution - 612x612
-			template: '<article class="grid" style="margin-right:auto; margin-left:auto; width:25%;">\
-					<p class="img"><a href="{{image}}" data-lightbox="group" data-title="{{caption}} (いいね{{likes}}件)"><img src="{{image}}" alt="" /></a></p>\
-					</article>' // 画像URL：{{image}} リンク：{{link}} キャプションテキスト{{caption}} いいね数：{{likes}} コメント数：{{comments}}
+			resolution:'standard_resolution', // thumbnail (default) - 150x150 | low_resolution - 306x306 | standard_resolution - 612x612
+			template: '<div style="display:inline-block; width:25%; height:250px;>\
+					<p class="img"><a href="{{image}}" data-lightbox="group" data-title="{{caption}} (いいね{{likes}}件)"><img src="{{image}}" alt="" style="height:250px; object-fit:cover;"></a></p>\
+					</div>' // 画像URL：{{image}} リンク：{{link}} キャプションテキスト{{caption}} いいね数：{{likes}} コメント数：{{comments}}
 		});
 		feed.run();
 		</script>
@@ -53,7 +53,6 @@
 			<section class="content">
 				<h3 class="heading">フォトギャラリー</h3>
 				<p>ここでは今まで私が撮ってきたものを置いていく予定です。</p><br>
-				<div id="instafeed"></div>
 				<p class="dateLabel">
 					<script>
 						var modified = new Date(document.lastModified);
@@ -63,11 +62,11 @@
 						document.write( "最終更新 " + year + "/" + month + "/" + date);
 					</script>
 				</p>
-				
+				<div id="instafeed"></div>
 			</section>
 			<div class="pagenav">
-				<span class="prev"><a href="index.html" rel="prev">&laquo; 前のページ</a></span>
-				<span class="next"><a href="index.html" rel="next">次のページ &raquo;</a></span>
+				<span class="prev"><a href="visualization.html" rel="prev">&laquo; データの可視化の練習</a></span>
+				<span class="next"><a href="index.html" rel="next">トップページ &raquo;</a></span>
 			</div>
 		</section>
 	</div>
