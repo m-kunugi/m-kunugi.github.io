@@ -13,20 +13,12 @@
 	<script type="text/javascript" src="js/header1.js"></script>
 
 	<li><a href="index.html"><strong>トップページ</strong><br /><span>Top</span></a></li>						
-	<li class="current-menu-item"><a href="various.html"><strong>色々なもの</strong><br /><span>Various things</span></a>	
+	<li><a href="geoscience.html"><strong>地学小噺</strong><br /><span>Geoscience Anecdota</span></a></li>
+	<li class="current-menu-item"><a href="various.html"><strong>色々なもの</strong><br /><span>Various Things</span></a>
 		<ul class="sub-menu">
-			<li><a href="various.html#probe">探査機の位置</a></li>
-			<li><a href="various.html#haya2">はやぶさ2の軌道</a></li>
-			<li><a href="various.html#Earth">地球の内部構造</a></li>	
-			<li><a href="various.html#train">地方鉄道</a></li>					
-			<li><a href="various.html#swingby">スイングバイ</a></li>					
+			<li><a href="visualization.html">可視化篇</a></li>
+			<li><a href="transportation.html">交通篇</a></li>					
 		</ul>
-	</li>
-	<li><a href="visualization.html"><strong>データの可視化</strong><br /><span>Data Visualization</span></a>
-		<ul class="sub-menu">	
-			<li><a href="visualization.html#train">最速手段</a></li>						
-		</ul>
-	</li>
 	<li><a href="blog.html"><strong>ブログ</strong><br /><span>Blog</span></a></li>
 	<li><a href="photos.html"><strong>フォトギャラリー</strong><br /><span>Photos</span></a></li>
 	
@@ -34,161 +26,16 @@
 
 	<div id="wrapper">
 		<section id="main">
+			<a href="index.html">TOP</a> &gt; 色々なもの
 			<section class="content">
 				<h3 class="heading">色々なもの</h3>
-				<p>ここでは今まで私が作ってきたものを置いていく予定です。下のアイコンをクリックで詳細に飛びます。</p><br>
-				<div class="section-area">
-					<div class="contents-wrap">
-						<div class="contents-box">
-							<a class="scroll">
-								<ul><li><img src="images/banners/haya2.jpg" alt=""><dl>
-									<h1>探査機の<br>位置</h1>
-									<p>&darr;&darr;&darr;&darr;&darr;&darr;</p>
-									<p style="padding:100%;"></p>
-								</dl></li><h2>パイオニアとボイジャーの位置</h2></ul>
-							</a>
-						</div>
-						<div class="contents-box">
-							<a class="scroll">
-								<ul><li><img src="images/banners/haya2.jpg" alt=""><dl>
-									<h1>はやぶさ<br>2の軌道</h1>
-									<p>&darr;&darr;&darr;&darr;&darr;&darr;</p>
-									<p style="padding:100%;"></p>
-								</dl></li><h2>gnuplotで描いたはやぶさ2の軌道</h2></ul>
-							</a>
-						</div>
-						<div class="contents-box">
-							<a class="scroll">
-								<ul><li><img src="images/banners/earth.jpg" alt=""><dl>
-									<h1>地球の<br>内部構造</h1>
-									<p>&darr;&darr;&darr;&darr;&darr;&darr;</p>
-									<p style="padding:100%;"></p>
-								</dl></li><h2>地球の内部構造</h2></ul>
-							</a>
-						</div>
-						<div class="contents-box">
-							<a class="scroll">
-								<ul><li><img src="images/banners/sample1.jpg" alt=""><dl>
-									<h1>地方鉄道<br><br></h1>
-									<p>&darr;&darr;&darr;&darr;&darr;&darr;</p>
-									<p style="padding-top:100%;"></p>
-								</dl></li><h2>鹿児島熊本に跨る第三セクター鉄道の資産価値</h2></ul>
-							</a>
-						</div>
-						<div class="contents-box">
-							<a class="scroll">
-								<ul><li><img src="images/banners/earth.jpg" alt=""><dl>
-									<h1>スイングバイ</h1>
-									<p>&darr;&darr;&darr;&darr;&darr;&darr;</p>
-									<p style="padding-top:100%;"></p>
-								</dl></li><h2>スイングバイ航法の説明動画</h2></ul>
-							</a>
-						</div>
-					</div>
-				</div>
-				<p class="dateLabel">
-					<script>
-						var modified = new Date(document.lastModified);
-						var year = modified.getFullYear();	
-						var month= modified.getMonth() + 1;
-						var date = modified.getDate();
-						document.write( "最終更新 " + year + "/" + month + "/" + date);
-					</script>
-				</p>
-				<article class="post">
-					<h3 class="scroll-target" id="probe">パイオニアとボイジャーの位置(2019/2 作成)</h3>
-					<div class="a">
-						<iframe width="560" height="315" src="probe.html" class="alignright"></iframe>
-						<p>大きい画面で見たい方は<u><a href="probe.html">こちら</a></u>をご覧ください。</p>
-					</div>
-					<div class="b">		
-						<p>小さな画面の方は<u><a href="probe.html">こちら</a></u>をご覧ください。</p>
-					</div>
-					<p>パイオニア10号・11号, ボイジャー1号・2号（＋木星, 土星, 天王星, 海王星）の位置（1977年〜1990年）です。<a href="https://threejs.org/">three.js</a>で作りました。</p>
-					<p>ボイジャー2号が海王星スイングバイをした後、カクッと軌道が変わるのが面白いです。また、ズームアウトすると出てくる白い球体は太陽から100 auの距離を表したものです。</p>
-					<p>各探査機はかなりの大きさ、惑星は実際の1000倍に拡大してあります。 <font color="orange">探査機の向きとか細かいことは気にしないでください。</font></p>
-					<br clear="all" />
-					<p>データの出典（各天体の位置）　<a href="https://ssd.jpl.nasa.gov/horizons.cgi">HORIZONS Web-Interface</a><br>
-						データの出典（探査機の形状）　<a href="https://nasa3d.arc.nasa.gov/models">Models | 3D Resources</a><br>
-						データの出典（惑星の表面）　<a href="http://planetpixelemporium.com/earth.html">Planet Earth Texture Maps</a></p>
-					<div class="pagenav">	
-						<span class="next"><a class="pagetop" rel="next">&#9650; トップへ</a></span>
-					</div>
-
-					<h3 class="scroll-target" id="haya2">gnuplotで描いたはやぶさ2の軌道(2019/2 作成)</h3>
-					<div class="a">
-						<iframe width="640" height="480" src="haya2.gif" class="alignleft"></iframe>
-						<p>小惑星探査機はやぶさ2の軌道を<a href="http://www.gnuplot.info/">gnuplot</a>で描きました。3分03秒のGIFファイルになっています。期間はt=0 [day]（打上げ、2014年12月3日）からt=1832 [day]（リュウグウ滞在の最後の頃、2019年12月9日）までです。</p>
-						<p>GIFでは飛ばして見れないので、<u><a href="https://youtu.be/0_6sgLGKIKc">こちら</a></u>にMP4も用意しました。見たい方はご覧ください。</p>
-					</div>
-					<div class="youtube">
-						<iframe src="https://www.youtube.com/embed/0_6sgLGKIKc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen class="alignleft"></iframe>
-					</div>
-					<div class="b">
-						<p>小惑星探査機はやぶさ2の軌道をgnuplotで描きました。期間はt=0 [day]（打上げ、2014年12月3日）からt=1832 [day]（2019年12月9日）までです。</p>
-						<p><u><a href="haya2.gif">こちら</a></u>にGIFも用意しました。見たい方はご覧ください。</p>
-					</div>
-					<p>作り方をQiitaに投稿しました。<br><a href="https://qiita.com/mkunu/items/7f82fef8e06b6274a5a7">Gnuplotで、はやぶさ2の軌道アニメーションを作ってみた</a></p>
-					<p>他にもはやぶさ2に関するGIFやグラフを作りました。<a href="https://github.com/m-kunugi/gnuplot/tree/master/haya2">Github</a>に載せてあります。</p>
-					<br clear="all" />
-					<p>データの出典　<a href="http://www.hayabusa2.jaxa.jp/topics/20180228/">「はやぶさ２」の小惑星遷移軌道（改訂版）を公開します| こちら「はやぶさ２」運用室 | JAXA はやぶさ２プロジェクト</a><br>
-						GIFにする時の参考文献　<a href="http://www.natural-science.or.jp/article/20101203183935.php">gnuplotでアニメーション直接 gif アニメーションを出力する</a></p>
-					<div class="pagenav">	
-						<span class="next"><a class="pagetop" rel="next">&#9650; トップへ</a></span>
-					</div>
-
-					<h3 class="scroll-target" id="Earth">地球の内部構造(2018/10 作成)</h3>
-					<div class="a">
-						<iframe width="560" height="315" src="internal_structure_of_the_Earth.html" class="alignright"></iframe>
-					</div>
-					<div class="b">		
-						<p>小さな画面の方は<u><a href="internal_structure_of_the_Earth.html">こちら</a></u>をご覧ください。</p>
-					</div>
-					<p>地球の内部構造です。</p>
-					<br clear="all" />
-					<p>色分けの際の参考文献　<a href="https://www.jishin.go.jp/main/herpnews/series/2010/1010_04.html">「地震本部ニュース」平成22年（2010年）10月号</a></p>
-					<div class="pagenav">	
-						<span class="next"><a class="pagetop" rel="next">&#9650; トップへ</a></span>
-					</div>
-
-					<h3 class="scroll-target" id="train">鹿児島熊本に跨る第三セクター鉄道の資産価値(2018/3 作成)</h3>
-					<p>日本の多くの地方鉄道では利用者減少による赤字が、今問題になっています。そんな中、鉄道事業者が維持費を自力で賄うのは当たり前、という風潮も日本には漂っていると個人的に感じています。一方で、欧米の国々を見るとその多くが車社会なので、日本と比べたら随分と赤字な路線が多いのですが、インフラと割り切って行政がより積極的に援助をする傾向があります。</p>
-					<p>日本と欧米のどっちが正しいかの議論はさて置き（あまりそういった単純比較は好きじゃないので）、今回は普段鉄道を<font color="orange">利用しない方も含めた</font>社会全体にとっての鉄道の価値を考えてみたいと思います。鹿児島熊本に跨るとある第三セクター鉄道を取り上げてみました。実際に以下で鹿児島県側について計算を行いました。</p>
-					<div class="a">
-						<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTILQ7al1tLAA_KS5aD-b8JFw_Kt88DKZPDxjVJYQ-_kxjaCDei53I1CBPCTyQEU5wqbmsRO7aq8Xy4/pubhtml?widget=true&amp;headers=false" width="680" height="400" class="alignleft" /></iframe>
-					</div>
-					<div class="b">		
-						<p>小さな画面の方は<a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTILQ7al1tLAA_KS5aD-b8JFw_Kt88DKZPDxjVJYQ-_kxjaCDei53I1CBPCTyQEU5wqbmsRO7aq8Xy4/pubhtml">こちら</a>をご覧ください。スマホの方は横画面にすると見やすいかと思います。</p>
-					</div>
-					<p>ど素人が手計算で概算したものですので、<font color="orange">あくまで参考程度に</font>留めてもらえれば幸いです。計算式は後述の参考文献を参考にさせていただきました。</p>	
-					<p>表についてざっくり説明すると、様々な分野での鉄道による費用抑制効果を定量的に算出しました。例えば、鉄道の存在によって道路の交通量が多少抑えられ、道路補修の頻度が減るなどです。</p>
-					<p>その結果、この鉄道による鹿児島県側での費用抑制効果は年間合計<font color="orange">約5.9億円</font>と見積もられます。鹿児島県側の年間の公的補助額が約2.7億円ですので、その<font color="orange">2倍以上の</font>（公的補助に見合う）資産価値があると考えられます。</p><br clear="all" />
-					<p>参考文献　<a href="https://doi.org/10.2208/jscejipm.70.I_809">西村和記・土井 勉・喜多秀行:「社会全体の支出抑制効果からみる公共交通が生み出す価値 ― クロスセクターベネフィットの視点から ―」、土木学会論文集D3(土木計画学)、Vol.70(2014)No.5、P.I-809~818、2014年</a></p>
-					<div class="pagenav">	
-						<span class="next"><a class="pagetop" rel="next">&#9650; トップへ</a></span>
-					</div>
-
-					<h3 class="scroll-target" id="swingby">スイングバイ航法の説明動画(2017/8 作成)</h3>
-					<div class="a">
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/K4jIaYxSYiU?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen class="alignright"></iframe>
-					</div>
-					<div class="youtube">
-						<iframe src="https://www.youtube.com/embed/K4jIaYxSYiU?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen class="alignright"></iframe>
-					</div>
-					<p>宇宙探査機に使われているスイングバイ航法について1分間で説明した動画です。</p>
-					<script>
-						url = "https://www.googleapis.com/youtube/v3/videos?part=statistics&id=K4jIaYxSYiU&fields=items%2Fstatistics&key=AIzaSyCjhf-eo_JraycAaQ3M9VgTIaF8-83kZas"
-						$.ajax({ url: url, method: 'GET', dataType: 'json', success : function(data){$("#viewcount").append(data.items[0].statistics.viewCount)}})
-					</script>
-					<p>お陰様で視聴回数は<span id="viewcount"></span>回です。</p>
-					<div class="pagenav">	
-						<span class="next"><a class="pagetop" rel="next">&#9650; トップへ</a></span>
-					</div>
-				</article>
+				<p>ここでは今まで私が作ってきたものを置いていく予定です。可視化篇と交通篇に分かれています。下のリンクからそれぞれの詳細に飛びます。</p><br>
+				<h3><a href="visualization.html">可視化篇</a></h3>
+				<h3><a href="transportation.html">交通篇</a></h3>
 			</section>
 			<div class="pagenav">
-				<span class="prev"><a href="index.html" rel="prev">&laquo; トップページ</a></span>
-				<span class="next"><a href="visualization.html" rel="next">データの可視化 &raquo;</a></span>
+				<span class="prev"><a href="geoscience.html" rel="prev">&laquo; 地学小噺</a></span>
+				<span class="next"><a href="blog.html" rel="next">ブログ &raquo;</a></span>
 			</div>
 		</section>
 	</div>

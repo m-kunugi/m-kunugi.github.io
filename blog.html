@@ -11,19 +11,12 @@
 			.leaflet-container {
 				cursor: default;
 			}
-			.mapauto {
+			#map1, #map2, #map3, #map4 {
 				position: relative;
 				width: 100%;
 				content:"";
     		display: block;
-				padding-top: 	100%; /* 高さを幅の70%に固定 */
-			}
-			#map1,#map2 {
-    			position: absolute;
-    			top: 0;
-    			left: 0;
-    			bottom: 0;
-    			right: 0;
+				padding-top: 	100%; /* 高さを幅の100%に固定 */
 			}
 	</style>	
 </head>
@@ -33,20 +26,12 @@
 	<script type="text/javascript" src="js/header1.js"></script>
 
 	<li><a href="index.html"><strong>トップページ</strong><br /><span>Top</span></a></li>						
-	<li><a href="various.html"><strong>色々なもの</strong><br /><span>Various things</span></a>	
+	<li><a href="geoscience.html"><strong>地学小噺</strong><br /><span>Geoscience Anecdota</span></a></li>
+	<li><a href="various.html"><strong>色々なもの</strong><br /><span>Various Things</span></a>
 		<ul class="sub-menu">
-			<li><a href="various.html#probe">探査機の位置</a></li>
-			<li><a href="various.html#haya2">はやぶさ2の軌道</a></li>
-			<li><a href="various.html#Earth">地球の内部構造</a></li>	
-			<li><a href="various.html#train">地方鉄道</a></li>					
-			<li><a href="various.html#swingby">スイングバイ</a></li>					
+			<li><a href="visualization.html">可視化篇</a></li>
+			<li><a href="transportation.html">交通篇</a></li>					
 		</ul>
-	</li>
-	<li><a href="visualization.html"><strong>データの可視化</strong><br /><span>Data Visualization</span></a>
-		<ul class="sub-menu">	
-			<li><a href="visualization.html#train">最速手段</a></li>						
-		</ul>
-	</li>
 	<li class="current-menu-item"><a href="blog.html"><strong>ブログ</strong><br /><span>Blog</span></a></li>
 	<li><a href="photos.html"><strong>フォトギャラリー</strong><br /><span>Photos</span></a></li>
 	
@@ -54,29 +39,19 @@
 
 	<div id="wrapper">
 		<section id="main">
+				<a href="index.html">TOP</a> &gt; ブログ
 			<section class="content">
 				<h3 class="heading">ブログ</h3>
-				<p>
-					思ったこととかつらつら書いていく予定。各記事はクリックするとEvernoteのリンクへ飛びます。
-					地図の縮尺は全て同じにしてあります。
-				</p>
-				<p class="dateLabel">
-					<script>
-						var modified = new Date(document.lastModified);
-						var year = modified.getFullYear();	
-						var month= modified.getMonth() + 1;
-						var date = modified.getDate();
-						document.write( "最終更新 " + year + "/" + month + "/" + date);
-					</script>
-				</p>
+				<p>思ったこととかつらつら書いていく予定。各記事はクリックするとEvernoteのリンクへ飛びます。</p>
+				<p>地図の縮尺は初期設定では全て同じにしてあります。</p>
 			</section>
 			<script src="js/leaflet.js"></script>
 		<script>
 			window.onload = function() {
 				var map1 = L.map('map1',{
-					center: [31.27, 121.5],
-					zoom: 9, minZoom: 9, maxZoom: 18,
-					dragging: false, zoomControl: false, 
+					center: [31.22, 121.49],
+					zoom: 9, minZoom: 3, maxZoom: 14,
+					dragging: false, zoomControl: true, 
 					touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
 					keyboard: false
 				});
@@ -87,9 +62,9 @@
 				L.control.scale({imperial:false}).addTo(map1);
 
 				var map2 = L.map('map2',{
-					center: [35.68, 139.76],
-					zoom: 9, minZoom: 9, maxZoom: 18,
-					dragging: false, zoomControl: false, 
+					center: [35.683, 139.757],
+					zoom: 9, minZoom: 3, maxZoom: 14,
+					dragging: false, zoomControl: true, 
 					touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
 					keyboard: false
 				});
@@ -99,6 +74,32 @@
 					}).addTo(map2);	/** https://leaflet-extras.github.io/leaflet-providers/preview/ **/
 				L.control.scale({imperial:false}).addTo(map2);
 
+				var map3 = L.map('map3',{
+					center: [32.016, 130.195],
+					zoom: 9, minZoom: 3, maxZoom: 14,
+					dragging: false, zoomControl: true, 
+					touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
+					keyboard: false
+				});
+				L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+						 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+						 maxZoom: 18
+					}).addTo(map3);	/** https://leaflet-extras.github.io/leaflet-providers/preview/ **/
+				L.control.scale({imperial:false}).addTo(map3);
+
+				var map4 = L.map('map4',{
+					center: [39.023, 141.625],
+					zoom: 9, minZoom: 3, maxZoom: 14,
+					dragging: false, zoomControl: true, 
+					touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
+					keyboard: false
+				});
+				L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+						 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+						 maxZoom: 18
+					}).addTo(map4);	/** https://leaflet-extras.github.io/leaflet-providers/preview/ **/
+				L.control.scale({imperial:false}).addTo(map4);
+
 				}
 		</script>
 			<section class="gridWrapper">
@@ -106,17 +107,16 @@
 					<div class="box">
 						<p class="img">
 							<p><a href="https://www.evernote.com/l/AV-GSZRUE6hKNKlLKjp6_ViAm8Ffs0x54rk">上海滞在記(2019/3/17~27)</a></p>
-							<div class="mapauto"><div id="map1"></div></div>
+							<div id="map1"></div>
 						</a></p>
 						<p>初海外として上海および上海近郊の地方都市へ行った記録</p>
-						<p class="readmore"><a href="https://www.evernote.com/l/AV-GSZRUE6hKNKlLKjp6_ViAm8Ffs0x54rk">詳細を確認する</a></p>
 					</div>
 				</article>  
 				<article class="grid">
 					<div class="box">
 						<p class="img">
 							<p>東京に住んでて思うこと(工事中)</p>
-							<div class="mapauto"><div id="map2"></div></div>
+							<div id="map2"></div>
 						</a></p>
 						<p> &#8230;</p>
 					</div>
@@ -125,7 +125,7 @@
 					<div class="box">
 						<p class="img">
 							<p>&#8230;(工事中)</p>
-							<div class="mapauto"><div id="map2"></div></div>
+							<div id="map3"></div>
 						</a></p>
 						<p> &#8230;</p>
 					</div>
@@ -134,7 +134,7 @@
 					<div class="box">
 						<p class="img">
 							<p>&#8230;(工事中)</p>
-							<div class="mapauto"><div id="map2"></div></div>
+							<div id="map4"></div>
 						</a></p>
 						<p> &#8230;</p>
 					</div>
@@ -142,7 +142,7 @@
 			</section>
 			
 			<div class="pagenav">
-				<span class="prev"><a href="visualization.html" rel="next">&laquo; データの可視化</a></span>
+				<span class="prev"><a href="various.html" rel="next">&laquo; 色々なもの</a></span>
 				<span class="next"><a href="photos.html" rel="next">フォトギャラリー &raquo;</a></span>
 			</div>
 		</section>
