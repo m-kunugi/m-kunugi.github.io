@@ -6,6 +6,26 @@
 	<meta name="viewport" content="width=device-width, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">	
 	<meta name="description" content="ブログ">	
 	<title>ブログ</title>
+	<link href="css/leaflet.css" rel="stylesheet" type="text/css">
+	<style>
+			.leaflet-container {
+				cursor: default;
+			}
+			.mapauto {
+				position: relative;
+				width: 100%;
+				content:"";
+    		display: block;
+				padding-top: 	100%; /* 高さを幅の70%に固定 */
+			}
+			#map1,#map2 {
+    			position: absolute;
+    			top: 0;
+    			left: 0;
+    			bottom: 0;
+    			right: 0;
+			}
+	</style>	
 </head>
 
 <body>
@@ -36,7 +56,10 @@
 		<section id="main">
 			<section class="content">
 				<h3 class="heading">ブログ</h3>
-				<p>思ったこととかつらつら書いていく予定。各記事はクリックするとEvernoteのリンクへ飛びます。</p>
+				<p>
+					思ったこととかつらつら書いていく予定。各記事はクリックするとEvernoteのリンクへ飛びます。
+					地図の縮尺は全て同じにしてあります。
+				</p>
 				<p class="dateLabel">
 					<script>
 						var modified = new Date(document.lastModified);
@@ -47,10 +70,77 @@
 					</script>
 				</p>
 			</section>
-			<article class="post">
-				<h3>2019</h3>
-				<p><a href="https://www.evernote.com/l/AV-GSZRUE6hKNKlLKjp6_ViAm8Ffs0x54rk">上海滞在記(2019/3/17~27)</a></p>
-			</article>
+			<script src="js/leaflet.js"></script>
+		<script>
+			window.onload = function() {
+				var map1 = L.map('map1',{
+					center: [31.27, 121.5],
+					zoom: 9, minZoom: 9, maxZoom: 18,
+					dragging: false, zoomControl: false, 
+					touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
+					keyboard: false
+				});
+				L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+					 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+					 maxZoom: 18
+				}).addTo(map1);	/** https://leaflet-extras.github.io/leaflet-providers/preview/ **/
+				L.control.scale({imperial:false}).addTo(map1);
+
+				var map2 = L.map('map2',{
+					center: [35.68, 139.76],
+					zoom: 9, minZoom: 9, maxZoom: 18,
+					dragging: false, zoomControl: false, 
+					touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
+					keyboard: false
+				});
+				L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+						 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+						 maxZoom: 18
+					}).addTo(map2);	/** https://leaflet-extras.github.io/leaflet-providers/preview/ **/
+				L.control.scale({imperial:false}).addTo(map2);
+
+				}
+		</script>
+			<section class="gridWrapper">
+				<article class="grid">
+					<div class="box">
+						<p class="img">
+							<p><a href="https://www.evernote.com/l/AV-GSZRUE6hKNKlLKjp6_ViAm8Ffs0x54rk">上海滞在記(2019/3/17~27)</a></p>
+							<div class="mapauto"><div id="map1"></div></div>
+						</a></p>
+						<p>初海外として上海および上海近郊の地方都市へ行った記録</p>
+						<p class="readmore"><a href="https://www.evernote.com/l/AV-GSZRUE6hKNKlLKjp6_ViAm8Ffs0x54rk">詳細を確認する</a></p>
+					</div>
+				</article>  
+				<article class="grid">
+					<div class="box">
+						<p class="img">
+							<p>東京に住んでて思うこと(工事中)</p>
+							<div class="mapauto"><div id="map2"></div></div>
+						</a></p>
+						<p> &#8230;</p>
+					</div>
+				</article>
+				<article class="grid">
+					<div class="box">
+						<p class="img">
+							<p>&#8230;(工事中)</p>
+							<div class="mapauto"><div id="map2"></div></div>
+						</a></p>
+						<p> &#8230;</p>
+					</div>
+				</article>
+				<article class="grid">
+					<div class="box">
+						<p class="img">
+							<p>&#8230;(工事中)</p>
+							<div class="mapauto"><div id="map2"></div></div>
+						</a></p>
+						<p> &#8230;</p>
+					</div>
+				</article>
+			</section>
+			
 			<div class="pagenav">
 				<span class="prev"><a href="visualization.html" rel="next">&laquo; データの可視化</a></span>
 				<span class="next"><a href="photos.html" rel="next">フォトギャラリー &raquo;</a></span>
