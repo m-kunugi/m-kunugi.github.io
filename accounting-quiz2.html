@@ -1,0 +1,75 @@
+<html>
+<head>
+  <title>損益計算書クイズ</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript">
+  var array1 = [['販売手数料、広告宣伝費、人件費（給与、賞与、役員報酬、福利厚生費）、交際費、旅費交通費、通信費、水道光熱費、租税公課、減価償却費、保険料、不動産賃借料、研究開発費、退職給付費用、貸倒引当金繰入額', 0],
+                ['受取利息、有価証券利息、有価証券売却益、有価証券評価益、受取配当金、雑収入', 1],
+                ['支払利息、社債利息、有価証券売却損、有価証券評価損、雑損失', 2],
+                ['固定資産売却益、投資有価証券売却益', 3],
+                ['固定資産売却損、投資有価証券売却損、減損損失、災害による損失', 4]];
+  function answer(){
+    for (const element of array1) {
+      var choices = document.getElementsByName(element[0]) ;
+      if(choices[element[1]].checked) document.getElementById('color'+ element[0]).style.color="blue"
+      else document.getElementById('color'+ element[0]).style.color="red"
+    }
+  }
+  </script>
+
+</head>
+<body>
+  損益計算書クイズ
+  （リロードするとランダムに表示されます。）
+  <form name="f">
+    <input type="button" value="答え合わせ" onclick="answer()">
+    <div id="order_list">
+  <script type="text/javascript">
+  var d1 = document.getElementById('order_list');
+  // https://teratail.com/questions/81199
+  function arrayShuffle (array) {
+    var k, t, len;
+    len = array.length;
+    if (len < 2) {
+      return array;
+    }
+    while (len) {
+      k = Math.floor(Math.random() * len--);
+      t = array[k];
+      array[k] = array[len];
+      array[len] = t;
+    }
+    return array;
+    }
+  arrayShuffle(array1);
+  
+  for (const element of array1) {
+    d1.insertAdjacentHTML('afterend', '<div class="order">\
+      <b><p id="color'+ element[0] +'">\
+      '+ element[0] +'</b><br>\
+      <input type="radio" name="'+ element[0] +'" > 販売費及び一般管理費\
+      <input type="radio" name="'+ element[0] +'" > 営業外収益\
+      <input type="radio" name="'+ element[0] +'" > 営業外費用\
+      <input type="radio" name="'+ element[0] +'" > 特別利益\
+      <input type="radio" name="'+ element[0] +'" > 特別損失\
+    </p></div>');
+  }
+  </script>
+    </div>
+    <input type="button" value="答え合わせ" onclick="answer()">
+  </form>
+  参考
+  <table border="1">
+    <tr><td>売上高<br>売上原価</td></tr>
+    <tr><td bgcolor="#00ffff">売上総利益</td></tr>
+    <tr><td>販売費及び一般管理費</td></tr>
+    <tr><td bgcolor="#00ffff">営業利益</td></tr>
+    <tr><td>営業外収益<br>営業外費用</td></tr>
+    <tr><td bgcolor="#00ffff">経常利益</td></tr>
+    <tr><td>特別利益<br>特別損失</td></tr>
+    <tr><td bgcolor="#00ffff">税引前当期純利益</td></tr>
+    <tr><td>法人税、住民税及び事業税<br>法人税等調整額<br>法人税等合計</td></tr>
+    <tr><td bgcolor="#00ffff">当期純利益</td></tr>
+  </table>
+</body>
+</html>

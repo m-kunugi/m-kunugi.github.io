@@ -1,0 +1,84 @@
+<html>
+<head>
+  <title>貸借対照表クイズ</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript">
+  var array1 = [['現金及び預金', 0], ['受取手形', 0], ['売掛金', 0], ['電子記録債権', 0], ['売買目的有価証券', 0], ['棚卸資産', 0], ['前渡金', 0], ['前払費用', 0], ['未収収益', 0], ['短期貸付金', 0], ['未収入金', 0],
+                ['建物', 1], ['構築物', 1], ['機械装置', 1], ['車両運搬具', 1], ['工具器具備品', 1], ['土地', 1], ['建設仮勘定', 1],
+                ['のれん', 2], ['特許権', 2], ['商標権', 2], ['ソフトウェア', 2],
+                ['投資有価証券', 3], ['長期貸付金', 3], ['長期前払費用', 3], ['繰延税金資産', 3],
+                ['創立費', 4], ['開業費', 4], ['開発費', 4],
+                ['支払手形', 5], ['買掛金', 5], ['電子記録債務', 5], ['短期借入金', 5], ['未払金', 5], ['未払費用', 5], ['未払法人税等', 5], ['前受金', 5], ['預り金', 5], ['前受収益', 5], ['引当金', 5], ['社債（１年以内償還）', 5],
+                ['社債', 6], ['長期借入金', 6], ['繰延税金負債', 6], ['引当金（期間が長いもの）', 6],
+                ['資本金', 7], ['資本剰余金', 7], ['利益剰余金', 7], ['自己株式', 7],
+                ['その他有価証券評価差額金', 8], ['土地再評価差額金', 8],
+                ['新株予約権', 9]];
+  function answer(){
+    for (const element of array1) {
+      var choices = document.getElementsByName(element[0]) ;
+      if(choices[element[1]].checked) document.getElementById('color'+ element[0]).style.color="blue"
+      else document.getElementById('color'+ element[0]).style.color="red"
+    }
+  }
+  </script>
+
+</head>
+<body>
+  貸借対照表クイズ
+  （リロードするとランダムに表示されます。）
+  <form name="f">
+    <input type="button" value="答え合わせ" onclick="answer()">
+    <div id="order_list">
+  <script type="text/javascript">
+  var d1 = document.getElementById('order_list');
+  // https://teratail.com/questions/81199
+  function arrayShuffle (array) {
+    var k, t, len;
+    len = array.length;
+    if (len < 2) {
+      return array;
+    }
+    while (len) {
+      k = Math.floor(Math.random() * len--);
+      t = array[k];
+      array[k] = array[len];
+      array[len] = t;
+    }
+    return array;
+    }
+  arrayShuffle(array1);
+  
+  for (const element of array1) {
+    d1.insertAdjacentHTML('afterend', '<div class="order">\
+      <b><p id="color'+ element[0] +'">\
+      '+ element[0] +'</b><br>\
+      <b>資産</b>\
+      <input type="radio" name="'+ element[0] +'" > 流動資産\
+      <input type="radio" name="'+ element[0] +'" > 有形固定資産\
+      <input type="radio" name="'+ element[0] +'" > 無形固定資産\
+      <input type="radio" name="'+ element[0] +'" > 投資その他の資産\
+      <input type="radio" name="'+ element[0] +'" > 繰延資産\
+      <br>\
+      <b>負債</b>\
+      <input type="radio" name="'+ element[0] +'" > 流動負債\
+      <input type="radio" name="'+ element[0] +'" > 固定負債\
+      &nbsp;&nbsp;\
+      <b>純資産</b>\
+      <input type="radio" name="'+ element[0] +'" > 株主資本\
+      <input type="radio" name="'+ element[0] +'" > 評価・換算差額等\
+      <input type="radio" name="'+ element[0] +'" > 新株予約権\
+    </p></div>');
+  }
+  </script>
+    </div>
+    <input type="button" value="答え合わせ" onclick="answer()">
+  </form>
+  参考
+  <table border="1">
+    <tr>
+      <td><b>（資産の部）</b><br>流動資産<br>固定資産<br>&nbsp;&nbsp;有形固定資産<br>&nbsp;&nbsp;無形固定資産<br>&nbsp;&nbsp;投資その他の資産<br>繰延資産</td>
+      <td><b>（負債の部）</b><br>流動負債<br>固定負債<br><b>（純資産の部）</b><br>株主資本<br>評価・換算差額等<br>新株予約権</td>
+    </tr>
+  </table>
+</body>
+</html>

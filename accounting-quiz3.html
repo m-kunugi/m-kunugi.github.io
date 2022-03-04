@@ -1,0 +1,78 @@
+<html>
+<head>
+  <title>イニシャルクイズ</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript">
+  var array1 = [['総資本利益率', 0],
+                ['総資産利益率', 1],
+                ['自己資本利益率', 2],
+                ['１株当たり当期純利益', 3],
+                ['株価収益率', 4],
+                ['１株当たり純資産', 5],
+                ['株価純資産倍率', 6]];
+  function answer(){
+    for (const element of array1) {
+      var choices = document.getElementsByName(element[0]) ;
+      if(choices[element[1]].checked) document.getElementById('color'+ element[0]).style.color="blue"
+      else document.getElementById('color'+ element[0]).style.color="red"
+    }
+  }
+  </script>
+
+</head>
+<body>
+  イニシャルクイズ
+  （リロードするとランダムに表示されます。）
+  <form name="f">
+    <input type="button" value="答え合わせ" onclick="answer()">
+    <div id="order_list">
+  <script type="text/javascript">
+  var d1 = document.getElementById('order_list');
+  // https://teratail.com/questions/81199
+  function arrayShuffle (array) {
+    var k, t, len;
+    len = array.length;
+    if (len < 2) {
+      return array;
+    }
+    while (len) {
+      k = Math.floor(Math.random() * len--);
+      t = array[k];
+      array[k] = array[len];
+      array[len] = t;
+    }
+    return array;
+    }
+  arrayShuffle(array1);
+  
+  for (const element of array1) {
+    d1.insertAdjacentHTML('afterend', '<div class="order">\
+      <b><p id="color'+ element[0] +'">\
+      '+ element[0] +'</b><br>\
+      <input type="radio" name="'+ element[0] +'" > ROI\
+      <input type="radio" name="'+ element[0] +'" > ROA\
+      <input type="radio" name="'+ element[0] +'" > ROE\
+      <input type="radio" name="'+ element[0] +'" > EPS\
+      <input type="radio" name="'+ element[0] +'" > PER\
+      <input type="radio" name="'+ element[0] +'" > BPS\
+      <input type="radio" name="'+ element[0] +'" > PBR\
+    </p></div>');
+  }
+  </script>
+    </div>
+    <input type="button" value="答え合わせ" onclick="answer()">
+  </form>
+  参考<br>
+  <b>資本利益率</b>=(利益/資本(または資産))×100％
+  =売上高利益率×資本回転率
+  =(利益/売上高)×(売上高/資本(または資産))<br>
+  <b>自己資本利益率</b>=(当期純利益/自己資本)
+  =売上高当期純利益率×総資本回転率×財務レバレッジ
+  =(当期純利益/売上高)×(売上高/総資本)×(総資本/自己資本)<br>
+  <b>１株当たり当期純利益</b>=当期純利益/発行済株式数（円）<br>
+  <b>株価収益率</b>=１株当たり株式時価/１株当たり当期純利益（倍）<br>
+  <b>１株当たり純資産</b>=純資産/発行済株式数（円）<br>
+  <b>株価純資産倍率</b>=１株当たり株式時価/１株当たり純資産（倍）
+  
+</body>
+</html>
